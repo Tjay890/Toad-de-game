@@ -1,4 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://bs5bewrt7rc81"]
+
+[gd_scene load_steps=27 format=3 uid="uid://bs5bewrt7rc81"]
+
+
 
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
 [ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_08lh2"]
@@ -12,7 +15,11 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="10_tlfns"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="11_6urh0"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="12_xjt1k"]
+
 [ext_resource type="Script" path="res://script/Player.gd" id="13_485ox"]
+[ext_resource type="PackedScene" uid="uid://bj2gjv51i0x1n" path="res://import/models/cabin.glb" id="13_jynqg"]
+[ext_resource type="PackedScene" uid="uid://bfkdco0mh48ed" path="res://import/models/campfire.glb" id="14_n3cvc"]
+
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sn0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -33,7 +40,9 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_4re0k"]
+
+[sub_resource type="Resource" id="Resource_7jgu7"]
+
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -42,7 +51,9 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_5imuv"]
+
+[sub_resource type="Resource" id="Resource_ofa35"]
+
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -53,7 +64,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_ip54y"]
+
+[sub_resource type="Resource" id="Resource_7ymdf"]
+
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -65,7 +78,9 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
+
 [sub_resource type="Resource" id="Resource_knvfq"]
+
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -81,17 +96,19 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
+
 [sub_resource type="Resource" id="Resource_haa63"]
 script = ExtResource("4_yecyg")
 stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_4re0k"), SubResource("Resource_5imuv"), SubResource("Resource_ip54y"), SubResource("Resource_knvfq")])
 
+
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
-size = Vector3(301.461, 1.24394, 296.312)
+size = Vector3(299.987, 1.24394, 300.054)
 
 [sub_resource type="Resource" id="Resource_hw33t"]
 script = ExtResource("12_xjt1k")
-radius = 18.2126
+radius = 14.3482
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qs3rm"]
 
@@ -113,12 +130,14 @@ material_override = ExtResource("1_fuq87")
 use_collision = true
 size = Vector3(300, 1, 300)
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_08lh2")]
+[node name="Tree_middle" parent="." instance=ExtResource("2_08lh2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.0266018)
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-modifier_stack = SubResource("Resource_haa63")
+
+modifier_stack = SubResource("Resource_ddd72")
+
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -148,6 +167,7 @@ script = ExtResource("10_tlfns")
 negative = true
 shape = SubResource("Resource_hw33t")
 
+
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.06151, 1.17027, -1.07716)
 script = ExtResource("13_485ox")
@@ -162,3 +182,10 @@ shape = SubResource("ConvexPolygonShape3D_7byu5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67235, -0.283352)
 
 [node name="Camera3D" type="Camera3D" parent="Player/nek"]
+
+[node name="Cabin" parent="." instance=ExtResource("13_jynqg")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 71.682, 2.38419e-07, -75.8689)
+
+[node name="Campvuur" parent="." instance=ExtResource("14_n3cvc")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.0181)
+
