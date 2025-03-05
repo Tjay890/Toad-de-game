@@ -1,7 +1,4 @@
-
-[gd_scene load_steps=27 format=3 uid="uid://bs5bewrt7rc81"]
-
-
+[gd_scene load_steps=26 format=3 uid="uid://bs5bewrt7rc81"]
 
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
 [ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_08lh2"]
@@ -15,11 +12,9 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="10_tlfns"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="11_6urh0"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="12_xjt1k"]
-
-[ext_resource type="Script" path="res://script/Player.gd" id="13_485ox"]
 [ext_resource type="PackedScene" uid="uid://bj2gjv51i0x1n" path="res://import/models/cabin.glb" id="14_jynqg"]
 [ext_resource type="PackedScene" uid="uid://bfkdco0mh48ed" path="res://import/models/campfire.glb" id="15_n3cvc"]
-
+[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="15_yhl83"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sn0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -40,9 +35,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-
-[sub_resource type="Resource" id="Resource_4re0k"]
-
+[sub_resource type="Resource" id="Resource_rwamq"]
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -51,9 +44,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-
-[sub_resource type="Resource" id="Resource_5imuv"]
-
+[sub_resource type="Resource" id="Resource_53w4d"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -64,9 +55,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-
-[sub_resource type="Resource" id="Resource_ip54y"]
-
+[sub_resource type="Resource" id="Resource_x5n1p"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -78,9 +67,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-
-[sub_resource type="Resource" id="Resource_knvfq"]
-
+[sub_resource type="Resource" id="Resource_vpl7y"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -96,11 +83,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-
-[sub_resource type="Resource" id="Resource_haa63"]
+[sub_resource type="Resource" id="Resource_cq4dn"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_4re0k"), SubResource("Resource_5imuv"), SubResource("Resource_ip54y"), SubResource("Resource_knvfq")])
-
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_rwamq"), SubResource("Resource_53w4d"), SubResource("Resource_x5n1p"), SubResource("Resource_vpl7y")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -109,11 +94,6 @@ size = Vector3(299.987, 1.24394, 300.054)
 [sub_resource type="Resource" id="Resource_hw33t"]
 script = ExtResource("12_xjt1k")
 radius = 14.3482
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_qs3rm"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7byu5"]
-points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
 
 [node name="world" type="Node3D"]
 
@@ -135,9 +115,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-
-modifier_stack = SubResource("Resource_haa63")
-
+modifier_stack = SubResource("Resource_cq4dn")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -167,25 +145,11 @@ script = ExtResource("10_tlfns")
 negative = true
 shape = SubResource("Resource_hw33t")
 
-
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.06151, 1.17027, -1.07716)
-script = ExtResource("13_485ox")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-mesh = SubResource("CapsuleMesh_qs3rm")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Player"]
-shape = SubResource("ConvexPolygonShape3D_7byu5")
-
-[node name="nek" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67235, -0.283352)
-
-[node name="Camera3D" type="Camera3D" parent="Player/nek"]
-
 [node name="Cabin" parent="." instance=ExtResource("14_jynqg")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 71.682, 2.38419e-07, -75.8689)
 
 [node name="Campvuur" parent="." instance=ExtResource("15_n3cvc")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.0181)
 
+[node name="Player" parent="." instance=ExtResource("15_yhl83")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26015, 1.26315, -0.456293)

@@ -16,8 +16,8 @@ var t_bob = 0.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.81
 
-@onready var nek = $nek
-@onready var camera = $nek/Camera3D
+@onready var nek = $nek2
+@onready var camera = $nek2/Camera3D
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
