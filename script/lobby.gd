@@ -9,6 +9,7 @@ const MAX_CONNECTIONS = 5
 
 var players = {}
 var player_info = {"name": "Name"}
+@export var connected_players : Label
 
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connected)
@@ -26,6 +27,7 @@ func create_game():
 	
 	players[1] = player_info
 	player_connected.emit(1, player_info)
+	print(players)
 
 func join_game(address):
 	var peer = ENetMultiplayerPeer.new()
@@ -49,9 +51,9 @@ func _on_player_disconnected(id):
 	
 func _on_connected_to_server():
 	var peer_id = multiplayer.get_unique_id()
-	
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
+	print(players)
 
 
 func _on_connection_failed():

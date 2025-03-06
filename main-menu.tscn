@@ -36,7 +36,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_yiwue"]
+[sub_resource type="Resource" id="Resource_r0lrt"]
 script = ExtResource("5_6n3fc")
 amount = 7500
 enabled = true
@@ -45,7 +45,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_dwmw6"]
+[sub_resource type="Resource" id="Resource_ehqqm"]
 script = ExtResource("6_s86aq")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -56,7 +56,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_vt2q5"]
+[sub_resource type="Resource" id="Resource_jd7fg"]
 script = ExtResource("7_w2cab")
 iterations = 3
 offset_step = 0.2
@@ -68,7 +68,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_ijywd"]
+[sub_resource type="Resource" id="Resource_12ypm"]
 script = ExtResource("8_yax8a")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -84,9 +84,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_jrgf8"]
+[sub_resource type="Resource" id="Resource_00etg"]
 script = ExtResource("4_1pqgq")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_yiwue"), SubResource("Resource_dwmw6"), SubResource("Resource_vt2q5"), SubResource("Resource_ijywd")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_r0lrt"), SubResource("Resource_ehqqm"), SubResource("Resource_jd7fg"), SubResource("Resource_12ypm")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_aua1i")
@@ -117,7 +117,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_fawvr")
-modifier_stack = SubResource("Resource_jrgf8")
+modifier_stack = SubResource("Resource_00etg")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -158,7 +158,7 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.926404, 0.376532, 0, -0.376532, 0.926404, 0, 6.30673, 9.25169)
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("status_label", "ip_line_edit")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("start_vbox", "status_label", "ip_line_edit", "start_button", "host_button", "join_button", "host_vbox", "connected_players")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,10 +166,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_06pdl")
+start_vbox = NodePath("StartVBox")
 status_label = NodePath("StatusLabel")
-ip_line_edit = NodePath("VBoxContainer/IPLineEdit")
+ip_line_edit = NodePath("StartVBox/IPLineEdit")
+start_button = NodePath("HostVBox/StartButton")
+host_button = NodePath("StartVBox/HostButton")
+join_button = NodePath("StartVBox/JoinButton")
+host_vbox = NodePath("HostVBox")
+connected_players = NodePath("Label")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="StartVBox" type="VBoxContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -183,28 +189,24 @@ offset_bottom = 85.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StartButton" type="Button" parent="Control/VBoxContainer"]
-layout_mode = 2
-text = "Start"
-
-[node name="HostButton" type="Button" parent="Control/VBoxContainer"]
+[node name="HostButton" type="Button" parent="UI/StartVBox"]
 layout_mode = 2
 text = "Host"
 
-[node name="JoinButton" type="Button" parent="Control/VBoxContainer"]
+[node name="JoinButton" type="Button" parent="UI/StartVBox"]
 layout_mode = 2
 text = "Join"
 
-[node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="UI/StartVBox"]
 layout_mode = 2
 text = "Quit"
 
-[node name="IPLineEdit" type="LineEdit" parent="Control/VBoxContainer"]
+[node name="IPLineEdit" type="LineEdit" parent="UI/StartVBox"]
 layout_mode = 2
 text = "127.0.0.1"
 alignment = 1
 
-[node name="StatusLabel" type="Label" parent="Control"]
+[node name="StatusLabel" type="Label" parent="UI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -216,7 +218,35 @@ offset_bottom = 73.0
 grow_horizontal = 2
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Control/VBoxContainer/StartButton" to="Control" method="_on_start_button_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/HostButton" to="Control" method="_on_host_button_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/JoinButton" to="Control" method="_on_join_button_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/QuitButton" to="Control" method="_on_quit_button_pressed"]
+[node name="HostVBox" type="VBoxContainer" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -20.0
+offset_right = 172.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="UI/HostVBox"]
+layout_mode = 2
+text = "Start"
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 139.0
+offset_right = 131.0
+offset_bottom = 162.0
+text = "Connected players:
+"
+
+[connection signal="pressed" from="UI/StartVBox/HostButton" to="UI" method="_on_host_button_pressed"]
+[connection signal="pressed" from="UI/StartVBox/JoinButton" to="UI" method="_on_join_button_pressed"]
+[connection signal="pressed" from="UI/StartVBox/QuitButton" to="UI" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/HostVBox/StartButton" to="UI" method="_on_start_button_pressed"]
