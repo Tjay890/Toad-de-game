@@ -70,9 +70,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-<<<<<<< Updated upstream
 [sub_resource type="Resource" id="Resource_w42wm"]
-=======
 script = ExtResource("8_yax8a")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
