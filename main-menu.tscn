@@ -255,7 +255,24 @@ offset_bottom = 162.0
 text = "Connected players:
 "
 
+[node name="Toad" type="VBoxContainer" parent="Level_container/world/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -163.0
+offset_top = 20.0
+offset_right = 163.0
+offset_bottom = 60.0
+grow_horizontal = 2
+
+[node name="Toad" type="Button" parent="Level_container/world/UI/Toad"]
+layout_mode = 2
+text = "Toad"
+
 [connection signal="pressed" from="Level_container/world/UI/StartVBox/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Level_container/world/UI/StartVBox/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="Level_container/world/UI/StartVBox/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Level_container/world/UI/HostVBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Level_container/world/UI/Toad/Toad" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Level_container/world/UI/Toad/Toad" to="." method="_on_toad_pressed"]

@@ -9,8 +9,6 @@ extends Node
 @export var level_container: Node
 @export var level_scene: PackedScene
 
-
-
 func _ready():
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -52,3 +50,13 @@ func _on_connection_failed():
 
 func _on_connected_to_server():
 	status_label.text = "Connected!"
+
+
+
+func _on_toad_pressed():
+	_update_toad.rpc(Lobby.peer_id)
+	
+
+@rpc("any_peer", "call_local", "reliable")
+func _update_toad(id):
+	Lobby.toad_id = id

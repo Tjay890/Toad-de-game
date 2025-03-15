@@ -6,7 +6,8 @@ signal server_disconnected
 
 const PORT = 7000
 const MAX_CONNECTIONS = 5
-
+var peer_id = 1
+var toad_id = 1
 var players = {}
 var player_info = {"name": "Name"}
 @export var connected_players : Label
@@ -44,16 +45,16 @@ func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
+	print(players)
 
 func _on_player_disconnected(id):
 	players.erase(id)
 	player_disconnected.emit(id)
 	
 func _on_connected_to_server():
-	var peer_id = multiplayer.get_unique_id()
+	peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
-	print(players)
 
 
 func _on_connection_failed():
