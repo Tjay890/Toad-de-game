@@ -1,9 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://bs5bewrt7rc81"]
+[gd_scene load_steps=26 format=3 uid="uid://bs5bewrt7rc81"]
 
-[ext_resource type="Script" path="res://script/level.gd" id="1_5qvat"]
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
+[ext_resource type="Script" path="res://level.gd" id="1_gfghv"]
 [ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_08lh2"]
-[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="2_xn8yd"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_idv4u"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_yecyg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_hfcmm"]
@@ -36,11 +35,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-<<<<<<< Updated upstream
 [sub_resource type="Resource" id="Resource_ofx6g"]
-=======
-[sub_resource type="Resource" id="Resource_jrfau"]
->>>>>>> Stashed changes
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -49,11 +44,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-<<<<<<< Updated upstream
 [sub_resource type="Resource" id="Resource_ggjnd"]
-=======
-[sub_resource type="Resource" id="Resource_3u6aw"]
->>>>>>> Stashed changes
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -64,11 +55,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-<<<<<<< Updated upstream
 [sub_resource type="Resource" id="Resource_el0wa"]
-=======
-[sub_resource type="Resource" id="Resource_25mb1"]
->>>>>>> Stashed changes
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -80,11 +67,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-<<<<<<< Updated upstream
 [sub_resource type="Resource" id="Resource_5367j"]
-=======
-[sub_resource type="Resource" id="Resource_fdtah"]
->>>>>>> Stashed changes
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -100,15 +83,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-<<<<<<< Updated upstream
 [sub_resource type="Resource" id="Resource_n1hsb"]
 script = ExtResource("4_yecyg")
 stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_ofx6g"), SubResource("Resource_ggjnd"), SubResource("Resource_el0wa"), SubResource("Resource_5367j")])
-=======
-[sub_resource type="Resource" id="Resource_ikdd2"]
-script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_jrfau"), SubResource("Resource_3u6aw"), SubResource("Resource_25mb1"), SubResource("Resource_fdtah")])
->>>>>>> Stashed changes
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -118,11 +95,8 @@ size = Vector3(299.987, 1.24394, 300.054)
 script = ExtResource("12_xjt1k")
 radius = 14.3482
 
-[node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points")]
-script = ExtResource("1_5qvat")
-player_scene = ExtResource("2_xn8yd")
-players_container = NodePath("Players/PlayersContainer")
-spawn_points = [NodePath("Players/Spawn_points/Spawn_Point_0"), NodePath("Players/Spawn_points/Spawn_Point_1"), NodePath("Players/Spawn_points/Spawn_Point_2"), NodePath("Players/Spawn_points/Spawn_Point_3"), NodePath("Players/Spawn_points/Spawn_Point_4"), NodePath("Players/Spawn_points/Spawn_Point_5")]
+[node name="world" type="Node3D"]
+script = ExtResource("1_gfghv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -142,11 +116,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-<<<<<<< Updated upstream
 modifier_stack = SubResource("Resource_n1hsb")
-=======
-modifier_stack = SubResource("Resource_ikdd2")
->>>>>>> Stashed changes
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -181,32 +151,3 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 71.682, 2.38419e-07, -7
 
 [node name="Campvuur" parent="." instance=ExtResource("15_n3cvc")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.0181)
-
-[node name="Players" type="Node" parent="."]
-
-[node name="PlayersContainer" type="Node3D" parent="Players"]
-
-[node name="Spawn_points" type="Node" parent="Players"]
-
-[node name="Spawn_Point_0" type="Node3D" parent="Players/Spawn_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09721, 2.38419e-07, 3.96516)
-
-[node name="Spawn_Point_1" type="Node3D" parent="Players/Spawn_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.456342, 0, 6.56209)
-
-[node name="Spawn_Point_2" type="Node3D" parent="Players/Spawn_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.30534, 2.38419e-07, -5.08625)
-
-[node name="Spawn_Point_3" type="Node3D" parent="Players/Spawn_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.117946, 0, -8.19207)
-
-[node name="Spawn_Point_4" type="Node3D" parent="Players/Spawn_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.03437, 4.76837e-07, 0.136513)
-
-[node name="Spawn_Point_5" type="Node3D" parent="Players/Spawn_points"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.52449, 4.76837e-07, 2.06503)
-
-[node name="Player_spawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
-spawn_path = NodePath("../Players/PlayersContainer")
-spawn_limit = 6
