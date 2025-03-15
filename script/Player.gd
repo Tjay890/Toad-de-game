@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@onready var visual : Node3D = $MeshInstance3D
+#@onready var visual : Node3D = $MeshInstance3D
 
 var speed
 const WALK_SPEED = 3.0
@@ -19,10 +19,26 @@ var gravity = 9.81
 @onready var nek = $nek2
 @onready var camera = $nek2/Camera3D
 
+var owner_id = 1
+
+func _enter_tree():
+	owner_id = name.to_int()
+	print(owner_id)
+	set_multiplayer_authority(owner_id)
+
+
 func _ready():
+	if owner_id != multiplayer.get_unique_id():
+		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	camera.current = true
+
 
 func _unhandled_input(event):
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
 	if event is InputEventMouseMotion:
 		nek.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
@@ -30,6 +46,10 @@ func _unhandled_input(event):
 		
 
 func _physics_process(delta):
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta

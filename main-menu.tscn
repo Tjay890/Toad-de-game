@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://dngudtbxp4n72"]
+[gd_scene load_steps=28 format=3 uid="uid://dngudtbxp4n72"]
 
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_q5oip"]
 [ext_resource type="Script" path="res://script/main-menu.gd" id="1_yvdyv"]
+[ext_resource type="PackedScene" uid="uid://bs5bewrt7rc81" path="res://main.tscn" id="2_11sgv"]
 [ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_21d46"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_fawvr"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_1pqgq"]
@@ -36,7 +37,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_68l4k"]
+[sub_resource type="Resource" id="Resource_tlgty"]
 script = ExtResource("5_6n3fc")
 amount = 7500
 enabled = true
@@ -45,7 +46,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_cyxmb"]
+[sub_resource type="Resource" id="Resource_vwuq0"]
 script = ExtResource("6_s86aq")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -56,7 +57,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_6r6b1"]
+[sub_resource type="Resource" id="Resource_mahk8"]
 script = ExtResource("7_w2cab")
 iterations = 3
 offset_step = 0.2
@@ -68,7 +69,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_xhr8v"]
+[sub_resource type="Resource" id="Resource_4kt35"]
 script = ExtResource("8_yax8a")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -84,9 +85,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_4jpdo"]
+[sub_resource type="Resource" id="Resource_o0fll"]
 script = ExtResource("4_1pqgq")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_68l4k"), SubResource("Resource_cyxmb"), SubResource("Resource_6r6b1"), SubResource("Resource_xhr8v")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_tlgty"), SubResource("Resource_vwuq0"), SubResource("Resource_mahk8"), SubResource("Resource_4kt35")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_aua1i")
@@ -96,86 +97,94 @@ size = Vector3(299.987, 1.24394, 300.054)
 script = ExtResource("12_ijtge")
 radius = 14.3482
 
-[node name="world" type="Node3D"]
+[node name="Main-menu" type="Node" node_paths=PackedStringArray("ui", "start_vbox", "status_label", "ip_line_edit", "host_vbox", "connected_players", "level_container")]
+script = ExtResource("15_06pdl")
+ui = NodePath("Level_container/world/UI")
+start_vbox = NodePath("Level_container/world/UI/StartVBox")
+status_label = NodePath("Level_container/world/UI/StatusLabel")
+ip_line_edit = NodePath("Level_container/world/UI/StartVBox/IPLineEdit")
+host_vbox = NodePath("Level_container/world/UI/HostVBox")
+connected_players = NodePath("Level_container/world/UI/Label")
+level_container = NodePath("Level_container")
+level_scene = ExtResource("2_11sgv")
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://main.tscn")
+spawn_path = NodePath("../Level_container")
+
+[node name="Level_container" type="Node" parent="."]
+
+[node name="world" type="Node3D" parent="Level_container"]
 script = ExtResource("1_yvdyv")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level_container/world"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Level_container/world"]
 environment = SubResource("Environment_31drr")
 
-[node name="floor" type="CSGBox3D" parent="."]
+[node name="floor" type="CSGBox3D" parent="Level_container/world"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 material_override = ExtResource("1_q5oip")
 use_collision = true
 size = Vector3(300, 1, 300)
 
-[node name="Tree_middle" parent="." instance=ExtResource("2_21d46")]
+[node name="Tree_middle" parent="Level_container/world" instance=ExtResource("2_21d46")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.0266018)
 
-[node name="ProtonScatter" type="Node3D" parent="."]
+[node name="ProtonScatter" type="Node3D" parent="Level_container/world"]
 script = ExtResource("3_fawvr")
-modifier_stack = SubResource("Resource_4jpdo")
+modifier_stack = SubResource("Resource_o0fll")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
-[node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
+[node name="ScatterItem" type="Node3D" parent="Level_container/world/ProtonScatter"]
 script = ExtResource("9_6biul")
 proportion = 50
 path = "res://addons/proton_scatter/demos/assets/bush.tscn"
 
-[node name="ScatterItem2" type="Node3D" parent="ProtonScatter"]
+[node name="ScatterItem2" type="Node3D" parent="Level_container/world/ProtonScatter"]
 script = ExtResource("9_6biul")
 proportion = 20
 path = "res://addons/proton_scatter/demos/assets/small_rock.tscn"
 
-[node name="ScatterItem3" type="Node3D" parent="ProtonScatter"]
+[node name="ScatterItem3" type="Node3D" parent="Level_container/world/ProtonScatter"]
 script = ExtResource("9_6biul")
 source_scale_multiplier = 3.0
 path = "res://addons/proton_scatter/demos/assets/pine_tree.tscn"
 
-[node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
+[node name="ScatterShape" type="Node3D" parent="Level_container/world/ProtonScatter"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 script = ExtResource("10_4f53b")
 shape = SubResource("Resource_311y1")
 
-[node name="ScatterShape2" type="Node3D" parent="ProtonScatter"]
+[node name="ScatterShape2" type="Node3D" parent="Level_container/world/ProtonScatter"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 script = ExtResource("10_4f53b")
 negative = true
 shape = SubResource("Resource_hw33t")
 
-[node name="Cabin" parent="." instance=ExtResource("13_upma0")]
+[node name="Cabin" parent="Level_container/world" instance=ExtResource("13_upma0")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 71.682, 2.38419e-07, -75.8689)
 
-[node name="Campvuur" parent="." instance=ExtResource("14_xmvrw")]
+[node name="Campvuur" parent="Level_container/world" instance=ExtResource("14_xmvrw")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.0181)
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="Level_container/world"]
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="Level_container/world/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.926404, 0.376532, 0, -0.376532, 0.926404, 0, 6.30673, 9.25169)
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("start_vbox", "status_label", "ip_line_edit", "start_button", "host_button", "join_button", "host_vbox", "connected_players")]
+[node name="UI" type="Control" parent="Level_container/world"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("15_06pdl")
-start_vbox = NodePath("StartVBox")
-status_label = NodePath("StatusLabel")
-ip_line_edit = NodePath("StartVBox/IPLineEdit")
-start_button = NodePath("HostVBox/StartButton")
-host_button = NodePath("StartVBox/HostButton")
-join_button = NodePath("StartVBox/JoinButton")
-host_vbox = NodePath("HostVBox")
-connected_players = NodePath("Label")
 
-[node name="StartVBox" type="VBoxContainer" parent="UI"]
+[node name="StartVBox" type="VBoxContainer" parent="Level_container/world/UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -189,24 +198,24 @@ offset_bottom = 85.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HostButton" type="Button" parent="UI/StartVBox"]
+[node name="HostButton" type="Button" parent="Level_container/world/UI/StartVBox"]
 layout_mode = 2
 text = "Host"
 
-[node name="JoinButton" type="Button" parent="UI/StartVBox"]
+[node name="JoinButton" type="Button" parent="Level_container/world/UI/StartVBox"]
 layout_mode = 2
 text = "Join"
 
-[node name="QuitButton" type="Button" parent="UI/StartVBox"]
+[node name="QuitButton" type="Button" parent="Level_container/world/UI/StartVBox"]
 layout_mode = 2
 text = "Quit"
 
-[node name="IPLineEdit" type="LineEdit" parent="UI/StartVBox"]
+[node name="IPLineEdit" type="LineEdit" parent="Level_container/world/UI/StartVBox"]
 layout_mode = 2
 text = "127.0.0.1"
 alignment = 1
 
-[node name="StatusLabel" type="Label" parent="UI"]
+[node name="StatusLabel" type="Label" parent="Level_container/world/UI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -218,7 +227,7 @@ offset_bottom = 73.0
 grow_horizontal = 2
 horizontal_alignment = 1
 
-[node name="HostVBox" type="VBoxContainer" parent="UI"]
+[node name="HostVBox" type="VBoxContainer" parent="Level_container/world/UI"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -233,11 +242,11 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StartButton" type="Button" parent="UI/HostVBox"]
+[node name="StartButton" type="Button" parent="Level_container/world/UI/HostVBox"]
 layout_mode = 2
 text = "Start"
 
-[node name="Label" type="Label" parent="UI"]
+[node name="Label" type="Label" parent="Level_container/world/UI"]
 layout_mode = 0
 offset_left = 91.0
 offset_top = 139.0
@@ -246,7 +255,7 @@ offset_bottom = 162.0
 text = "Connected players:
 "
 
-[connection signal="pressed" from="UI/StartVBox/HostButton" to="UI" method="_on_host_button_pressed"]
-[connection signal="pressed" from="UI/StartVBox/JoinButton" to="UI" method="_on_join_button_pressed"]
-[connection signal="pressed" from="UI/StartVBox/QuitButton" to="UI" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="UI/HostVBox/StartButton" to="UI" method="_on_start_button_pressed"]
+[connection signal="pressed" from="Level_container/world/UI/StartVBox/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Level_container/world/UI/StartVBox/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="Level_container/world/UI/StartVBox/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Level_container/world/UI/HostVBox/StartButton" to="." method="_on_start_button_pressed"]
