@@ -3,12 +3,14 @@ extends Node
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
+signal update_connected_players
 
 const PORT = 7000
 const MAX_CONNECTIONS = 5
 var peer_id = 1
 var toad_id = 1
 var players = {}
+var player_list = []
 var player_info = {"name": "Name"}
 @export var connected_players : Label
 
@@ -27,8 +29,9 @@ func create_game():
 	multiplayer.multiplayer_peer = peer
 	
 	players[1] = player_info
+	player_list.append(1)
 	player_connected.emit(1, player_info)
-	print(players)
+	update_connected_players.emit()
 
 func join_game(address):
 	var peer = ENetMultiplayerPeer.new()
@@ -44,8 +47,9 @@ func _on_player_connected(id):
 func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
+	player_list.append(new_player_id)
 	player_connected.emit(new_player_id, new_player_info)
-	print(players)
+	update_connected_players.emit()
 
 func _on_player_disconnected(id):
 	players.erase(id)
@@ -55,6 +59,7 @@ func _on_connected_to_server():
 	peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
+	player_list.append(peer_id)
 
 
 func _on_connection_failed():

@@ -8,11 +8,14 @@ extends Node
 @export var connected_players: Label
 @export var level_container: Node
 @export var level_scene: PackedScene
+@export var toad_label: Label
+@export var toad_vbox: VBoxContainer
 
 func _ready():
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	
+	Lobby.update_connected_players.connect(_update_connected_players)
+
 func _on_start_button_pressed():
 	hide_menu.rpc()
 	change_level.call_deferred(level_scene)
@@ -38,6 +41,7 @@ func _on_host_button_pressed():
 	Lobby.create_game()
 	start_vbox.hide()
 	host_vbox.show()
+	toad_vbox.show()
 
 func _on_join_button_pressed():
 	status_label.text = "Connecting..."
@@ -50,13 +54,25 @@ func _on_connection_failed():
 
 func _on_connected_to_server():
 	status_label.text = "Connected!"
+	toad_vbox.show()
 
 
 
 func _on_toad_pressed():
 	_update_toad.rpc(Lobby.peer_id)
+	toad_label.text += " (You)"
 	
 
 @rpc("any_peer", "call_local", "reliable")
 func _update_toad(id):
 	Lobby.toad_id = id
+	toad_label.text = "Toad speler:\n" + str(id)
+	toad_vbox.hide()
+	
+
+
+func _update_connected_players():
+	connected_players.text = "Connected Players:\n"
+	for person in Lobby.player_list:
+		connected_players.text += str(person) + "\n"
+	

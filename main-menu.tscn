@@ -37,7 +37,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_tlgty"]
+[sub_resource type="Resource" id="Resource_u4y6l"]
 script = ExtResource("5_6n3fc")
 amount = 7500
 enabled = true
@@ -46,7 +46,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_vwuq0"]
+[sub_resource type="Resource" id="Resource_sf5vv"]
 script = ExtResource("6_s86aq")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -57,7 +57,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_mahk8"]
+[sub_resource type="Resource" id="Resource_x2jg2"]
 script = ExtResource("7_w2cab")
 iterations = 3
 offset_step = 0.2
@@ -69,7 +69,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_4kt35"]
+[sub_resource type="Resource" id="Resource_btvsd"]
 script = ExtResource("8_yax8a")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -85,9 +85,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_o0fll"]
+[sub_resource type="Resource" id="Resource_n07ox"]
 script = ExtResource("4_1pqgq")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_tlgty"), SubResource("Resource_vwuq0"), SubResource("Resource_mahk8"), SubResource("Resource_4kt35")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_u4y6l"), SubResource("Resource_sf5vv"), SubResource("Resource_x2jg2"), SubResource("Resource_btvsd")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_aua1i")
@@ -97,16 +97,18 @@ size = Vector3(299.987, 1.24394, 300.054)
 script = ExtResource("12_ijtge")
 radius = 14.3482
 
-[node name="Main-menu" type="Node" node_paths=PackedStringArray("ui", "start_vbox", "status_label", "ip_line_edit", "host_vbox", "connected_players", "level_container")]
+[node name="Main-menu" type="Node" node_paths=PackedStringArray("ui", "start_vbox", "status_label", "ip_line_edit", "host_vbox", "connected_players", "level_container", "toad_label", "toad_vbox")]
 script = ExtResource("15_06pdl")
 ui = NodePath("Level_container/world/UI")
 start_vbox = NodePath("Level_container/world/UI/StartVBox")
 status_label = NodePath("Level_container/world/UI/StatusLabel")
 ip_line_edit = NodePath("Level_container/world/UI/StartVBox/IPLineEdit")
 host_vbox = NodePath("Level_container/world/UI/HostVBox")
-connected_players = NodePath("Level_container/world/UI/Label")
+connected_players = NodePath("Level_container/world/UI/ConnectedPlayers")
 level_container = NodePath("Level_container")
 level_scene = ExtResource("2_11sgv")
+toad_label = NodePath("Level_container/world/UI/ToadLabel")
+toad_vbox = NodePath("Level_container/world/UI/Toad")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://main.tscn")
@@ -135,7 +137,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="Level_container/world"]
 script = ExtResource("3_fawvr")
-modifier_stack = SubResource("Resource_o0fll")
+modifier_stack = SubResource("Resource_n07ox")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -191,9 +193,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -169.0
+offset_left = -170.0
 offset_top = -85.5
-offset_right = 169.0
+offset_right = 170.0
 offset_bottom = 85.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -246,7 +248,7 @@ grow_vertical = 2
 layout_mode = 2
 text = "Start"
 
-[node name="Label" type="Label" parent="Level_container/world/UI"]
+[node name="ConnectedPlayers" type="Label" parent="Level_container/world/UI"]
 layout_mode = 0
 offset_left = 91.0
 offset_top = 139.0
@@ -256,19 +258,29 @@ text = "Connected players:
 "
 
 [node name="Toad" type="VBoxContainer" parent="Level_container/world/UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -163.0
-offset_top = 20.0
-offset_right = 163.0
-offset_bottom = 60.0
+offset_left = -170.0
+offset_top = 200.0
+offset_right = 170.0
+offset_bottom = 240.0
 grow_horizontal = 2
 
 [node name="Toad" type="Button" parent="Level_container/world/UI/Toad"]
 layout_mode = 2
 text = "Toad"
+
+[node name="ToadLabel" type="Label" parent="Level_container/world/UI"]
+layout_mode = 0
+offset_left = 927.0
+offset_top = 143.0
+offset_right = 967.0
+offset_bottom = 166.0
+text = "Toad speler:
+"
 
 [connection signal="pressed" from="Level_container/world/UI/StartVBox/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Level_container/world/UI/StartVBox/JoinButton" to="." method="_on_join_button_pressed"]
