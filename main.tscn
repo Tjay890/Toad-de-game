@@ -161,7 +161,7 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 71.682, 2.38419e-07, -7
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.0181)
 
 
-[node name="Player" parent="." instance=ExtResource("15_yhl83")]
+[node name="Player" parent="." instance=ExtResource("2_7e2xc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26015, 1.26315, -0.456293)
 
 [node name="map" type="Node3D" parent="."]
