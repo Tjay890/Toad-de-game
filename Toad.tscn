@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddkapc5aro1m3"]
+[gd_scene load_steps=7 format=3 uid="uid://ddkapc5aro1m3"]
 
-[ext_resource type="Script" path="res://Player_toad.gd" id="1_qsn46"]
+[ext_resource type="Script" path="res://script/Player_toad.gd" id="1_eplmw"]
+[ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://pause_menu.tscn" id="2_vlky7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41q6b"]
 albedo_color = Color(1, 0, 0, 1)
@@ -18,8 +19,9 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Toad" type="CharacterBody3D"]
-script = ExtResource("1_qsn46")
+[node name="Toad" type="CharacterBody3D" node_paths=PackedStringArray("pause_menu")]
+script = ExtResource("1_eplmw")
+pause_menu = NodePath("PauseMenu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -37,3 +39,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62643, 0)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vq1u0")
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_vlky7")]

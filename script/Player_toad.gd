@@ -15,7 +15,7 @@ var t_bob = 0.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.81
-
+@export var pause_menu : ColorRect
 @onready var nek = $Nek
 @onready var camera = $Nek/Camera3D
 
@@ -96,3 +96,7 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos 
+
+func _input(event: InputEvent) -> void: 
+	if event.is_action_pressed("ui_cancel"):
+		pause_menu.pause()
