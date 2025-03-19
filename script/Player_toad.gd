@@ -15,11 +15,9 @@ var t_bob = 0.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.81
-
-@onready var nek = $nek2
-@onready var camera = $nek2/Camera3D
-@onready var pause_menu = $pause_menu
-
+@export var pause_menu : ColorRect
+@onready var nek = $Nek
+@onready var camera = $Nek/Camera3D
 
 var owner_id = 1
 
@@ -27,8 +25,6 @@ func _enter_tree():
 	owner_id = name.to_int()
 	print(owner_id)
 	set_multiplayer_authority(owner_id)
-
-
 
 
 func _ready():
@@ -47,7 +43,7 @@ func _unhandled_input(event):
 		nek.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-
+		
 
 func _physics_process(delta):
 	if multiplayer.multiplayer_peer == null:

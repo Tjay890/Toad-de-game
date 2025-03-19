@@ -18,6 +18,8 @@ height = 0.489166
 surface_material_override/0 = ExtResource("2_cgtpc")
 
 [node name="Leaves" parent="." index="1"]
+visibility_range_end = 100.0
+visibility_range_end_margin = 1.0
 surface_material_override/0 = ExtResource("2_xnytt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
