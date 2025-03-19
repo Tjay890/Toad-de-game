@@ -35,7 +35,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_x5bnu"]
+[sub_resource type="Resource" id="Resource_an4n6"]
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -44,7 +44,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_6mhc4"]
+[sub_resource type="Resource" id="Resource_2oqn2"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -55,7 +55,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_ibt78"]
+[sub_resource type="Resource" id="Resource_5tk6c"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -67,7 +67,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_6tv6v"]
+[sub_resource type="Resource" id="Resource_y3hgl"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -83,9 +83,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_733hm"]
+[sub_resource type="Resource" id="Resource_2jumx"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_x5bnu"), SubResource("Resource_6mhc4"), SubResource("Resource_ibt78"), SubResource("Resource_6tv6v")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_an4n6"), SubResource("Resource_2oqn2"), SubResource("Resource_5tk6c"), SubResource("Resource_y3hgl")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -104,18 +104,12 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_31drr")
 
-[node name="floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("1_fuq87")
-use_collision = true
-size = Vector3(300, 1, 300)
-
 [node name="Tree_middle" parent="." instance=ExtResource("2_08lh2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.0266018)
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-modifier_stack = SubResource("Resource_733hm")
+modifier_stack = SubResource("Resource_2jumx")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -153,3 +147,37 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.
 
 [node name="Player" parent="." instance=ExtResource("15_yhl83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26015, 1.26315, -0.456293)
+
+[node name="map" type="Node3D" parent="."]
+
+[node name="floor" type="CSGBox3D" parent="map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_fuq87")
+use_collision = true
+size = Vector3(300, 1, 300)
+
+[node name="walls" type="Node3D" parent="map"]
+
+[node name="wall1" type="CSGBox3D" parent="map/walls"]
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 150, 0, 0)
+material_override = ExtResource("1_fuq87")
+use_collision = true
+size = Vector3(20, 1, 320)
+
+[node name="wall2" type="CSGBox3D" parent="map/walls"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -150, 0, 0)
+material_override = ExtResource("1_fuq87")
+use_collision = true
+size = Vector3(20, 1, 320)
+
+[node name="wall3" type="CSGBox3D" parent="map/walls"]
+transform = Transform3D(-2.18557e-08, -3.78552e-08, 1, -0.866025, 0.5, 0, -0.5, -0.866025, -4.37114e-08, 0, 0, 150)
+material_override = ExtResource("1_fuq87")
+use_collision = true
+size = Vector3(20, 1, 320)
+
+[node name="wall4" type="CSGBox3D" parent="map/walls"]
+transform = Transform3D(-2.18557e-08, -3.78552e-08, -1, -0.866025, 0.5, 0, 0.5, 0.866025, -4.37114e-08, 0, 0, -150)
+material_override = ExtResource("1_fuq87")
+use_collision = true
+size = Vector3(20, 1, 320)

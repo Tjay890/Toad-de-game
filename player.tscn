@@ -23,4 +23,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67235, -0.283352)
 
 [node name="Camera3D" type="Camera3D" parent="nek2"]
 
+[node name="Spotlight" type="Node3D" parent="nek2/Camera3D"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="nek2/Camera3D/Spotlight"]
+light_color = Color(1, 0.94902, 0.886275, 1)
+light_energy = 4.0
+light_volumetric_fog_energy = 0.1
+spot_range = 100.0
+spot_angle_attenuation = 3.0
+
 [node name="pause_menu" parent="." instance=ExtResource("2_blwle")]
