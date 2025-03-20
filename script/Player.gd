@@ -7,6 +7,7 @@ const WALK_SPEED = 3.0
 const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
+var health = 2
 
 #bob variables
 const BOB_FREQ = 2.0
@@ -104,3 +105,4 @@ func _headbob(time) -> Vector3:
 func _input(event: InputEvent) -> void: 
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
+
