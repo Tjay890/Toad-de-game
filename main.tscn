@@ -1,15 +1,15 @@
-[gd_scene load_steps=30 format=3 uid="uid://bs5bewrt7rc81"]
+[gd_scene load_steps=32 format=3 uid="uid://bs5bewrt7rc81"]
 
 [ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://ui.tscn" id="1_21tic"]
-[ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
 [ext_resource type="Script" path="res://level.gd" id="1_gfghv"]
 [ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="2_7e2xc"]
-[ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_08lh2"]
 [ext_resource type="PackedScene" uid="uid://ddkapc5aro1m3" path="res://Toad.tscn" id="3_bse70"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_idv4u"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_yecyg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_hfcmm"]
+[ext_resource type="Texture2D" uid="uid://dpiksp4ps2or5" path="res://import/textures/O5NY920.jpg" id="5_jcmwr"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="6_8xobo"]
+[ext_resource type="PackedScene" uid="uid://nac8j8aryaii" path="res://import/models/giant_low_poly_tree.glb" id="6_jnswg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="7_cjyeg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="8_y8xd7"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="9_5as5t"]
@@ -17,11 +17,7 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="11_6urh0"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/offset_rotation.gd" id="12_bp8jk"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="12_xjt1k"]
-[ext_resource type="PackedScene" uid="uid://bj2gjv51i0x1n" path="res://import/models/cabin.glb" id="14_jynqg"]
-[ext_resource type="PackedScene" uid="uid://bfkdco0mh48ed" path="res://import/models/campfire.glb" id="15_n3cvc"]
-[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="15_yhl83"]
 [ext_resource type="PackedScene" uid="uid://o0u5245tvq5b" path="res://toad note.tscn" id="17_2b4uh"]
-
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sn0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -29,12 +25,12 @@ sky_horizon_color = Color(0.164706, 0.0313726, 0.0470588, 1)
 ground_bottom_color = Color(0.0901961, 0.0235294, 0.00392157, 1)
 ground_horizon_color = Color(0.0196078, 0.00392157, 0, 1)
 
-[sub_resource type="Sky" id="Sky_xbi26"]
+[sub_resource type="Sky" id="Sky_lapkv"]
 sky_material = SubResource("ProceduralSkyMaterial_i5sn0")
 
 [sub_resource type="Environment" id="Environment_31drr"]
 background_mode = 2
-sky = SubResource("Sky_xbi26")
+sky = SubResource("Sky_lapkv")
 tonemap_mode = 3
 sdfgi_enabled = true
 glow_enabled = true
@@ -42,9 +38,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-
-[sub_resource type="Resource" id="Resource_nibox"]
-
+[sub_resource type="Resource" id="Resource_2d6x4"]
 script = ExtResource("5_hfcmm")
 amount = 2000
 enabled = true
@@ -53,7 +47,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_2tjsd"]
+[sub_resource type="Resource" id="Resource_naneu"]
 script = ExtResource("6_8xobo")
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)
@@ -64,9 +58,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-
-[sub_resource type="Resource" id="Resource_7pie1"]
-
+[sub_resource type="Resource" id="Resource_vuwqk"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -78,8 +70,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-
-[sub_resource type="Resource" id="Resource_u55bo"]
+[sub_resource type="Resource" id="Resource_w4ji8"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -95,7 +86,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_d4ykx"]
+[sub_resource type="Resource" id="Resource_mhvuv"]
 script = ExtResource("12_bp8jk")
 operation = 0
 rotation = Vector3(-90, 0, 0)
@@ -105,10 +96,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_rln2c"]
+[sub_resource type="Resource" id="Resource_ajfg7"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_nibox"), SubResource("Resource_2tjsd"), SubResource("Resource_7pie1"), SubResource("Resource_u55bo"), SubResource("Resource_d4ykx")])
-
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_2d6x4"), SubResource("Resource_naneu"), SubResource("Resource_vuwqk"), SubResource("Resource_w4ji8"), SubResource("Resource_mhvuv")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -116,7 +106,15 @@ size = Vector3(312.999, 1.24394, 312.518)
 
 [sub_resource type="Resource" id="Resource_hw33t"]
 script = ExtResource("12_xjt1k")
-radius = 14.3482
+radius = 23.0937
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4nhr6"]
+albedo_texture = ExtResource("5_jcmwr")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7si5"]
+albedo_texture = ExtResource("5_jcmwr")
+uv1_triplanar = true
 
 [node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points")]
 script = ExtResource("1_gfghv")
@@ -134,20 +132,11 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_31drr")
 
-[node name="floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("1_fuq87")
-cast_shadow = 0
-use_collision = true
-size = Vector3(300, 1, 300)
-
-[node name="Tree_middle" parent="." instance=ExtResource("2_08lh2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.0266018)
+[node name="Tree_Middle" parent="." instance=ExtResource("6_jnswg")]
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-
-modifier_stack = SubResource("Resource_rln2c")
+modifier_stack = SubResource("Resource_ajfg7")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -168,22 +157,17 @@ script = ExtResource("10_tlfns")
 negative = true
 shape = SubResource("Resource_hw33t")
 
-[node name="Cabin" parent="." instance=ExtResource("14_jynqg")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 71.682, 2.38419e-07, -75.8689)
-
-[node name="Campvuur" parent="." instance=ExtResource("15_n3cvc")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.0181)
-
 [node name="Player" parent="." instance=ExtResource("2_7e2xc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26015, 1.26315, -0.456293)
 
 [node name="Toad-poster" parent="." instance=ExtResource("17_2b4uh")]
 transform = Transform3D(-6.55671e-09, 0.205, -8.52372e-09, 0, -8.96083e-09, -0.195, -0.15, -8.96083e-09, 3.72584e-16, -17.4813, 1.13385, 0.116793)
+
 [node name="map" type="Node3D" parent="."]
 
 [node name="floor" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("1_fuq87")
+material_override = SubResource("StandardMaterial3D_4nhr6")
 use_collision = true
 size = Vector3(300, 1, 300)
 
@@ -191,25 +175,25 @@ size = Vector3(300, 1, 300)
 
 [node name="wall1" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 150, 0, 0)
-material_override = ExtResource("1_fuq87")
+material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
 size = Vector3(20, 1, 320)
 
 [node name="wall2" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -150, 0, 0)
-material_override = ExtResource("1_fuq87")
+material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
 size = Vector3(20, 1, 320)
 
 [node name="wall3" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(-2.18557e-08, -3.78552e-08, 1, -0.866025, 0.5, 0, -0.5, -0.866025, -4.37114e-08, 0, 0, 150)
-material_override = ExtResource("1_fuq87")
+material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
 size = Vector3(20, 1, 320)
 
 [node name="wall4" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(-2.18557e-08, -3.78552e-08, -1, -0.866025, 0.5, 0, 0.5, 0.866025, -4.37114e-08, 0, 0, -150)
-material_override = ExtResource("1_fuq87")
+material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
 size = Vector3(20, 1, 320)
 
