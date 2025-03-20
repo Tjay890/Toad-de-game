@@ -106,3 +106,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
 
+
+
+
+func _on_area_3d_body_entered(body):
+	if body.name == "Test doos":
+		healthdepleted()
+
+func healthdepleted():
+	health -= 1
+	

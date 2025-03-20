@@ -8,7 +8,7 @@ signal update_connected_players
 const PORT = 7000
 const MAX_CONNECTIONS = 5
 var peer_id = 1
-var toad_id = 1
+var toad_id = 0
 var players = {}
 var player_list = []
 var player_info = {"name": "Name"}
