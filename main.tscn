@@ -1,5 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://bs5bewrt7rc81"]
+[gd_scene load_steps=28 format=3 uid="uid://bs5bewrt7rc81"]
 
+[ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://ui.tscn" id="1_21tic"]
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
 [ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_08lh2"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_idv4u"]
@@ -15,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bj2gjv51i0x1n" path="res://import/models/cabin.glb" id="14_jynqg"]
 [ext_resource type="PackedScene" uid="uid://bfkdco0mh48ed" path="res://import/models/campfire.glb" id="15_n3cvc"]
 [ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="15_yhl83"]
+[ext_resource type="PackedScene" uid="uid://o0u5245tvq5b" path="res://toad note.tscn" id="17_2b4uh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sn0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -35,7 +37,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_rwamq"]
+[sub_resource type="Resource" id="Resource_aodpa"]
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -44,7 +46,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_53w4d"]
+[sub_resource type="Resource" id="Resource_4inj7"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -55,7 +57,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_x5n1p"]
+[sub_resource type="Resource" id="Resource_otgl8"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -67,7 +69,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_vpl7y"]
+[sub_resource type="Resource" id="Resource_uwedd"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -83,9 +85,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_cq4dn"]
+[sub_resource type="Resource" id="Resource_gel2n"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_rwamq"), SubResource("Resource_53w4d"), SubResource("Resource_x5n1p"), SubResource("Resource_vpl7y")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_aodpa"), SubResource("Resource_4inj7"), SubResource("Resource_otgl8"), SubResource("Resource_uwedd")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -96,6 +98,8 @@ script = ExtResource("12_xjt1k")
 radius = 14.3482
 
 [node name="world" type="Node3D"]
+
+[node name="UI" parent="." instance=ExtResource("1_21tic")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -115,7 +119,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-modifier_stack = SubResource("Resource_cq4dn")
+modifier_stack = SubResource("Resource_gel2n")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -153,3 +157,6 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.
 
 [node name="Player" parent="." instance=ExtResource("15_yhl83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26015, 1.26315, -0.456293)
+
+[node name="Toad-poster" parent="." instance=ExtResource("17_2b4uh")]
+transform = Transform3D(-6.55671e-09, 0.205, -8.52372e-09, 0, -8.96083e-09, -0.195, -0.15, -8.96083e-09, 3.72584e-16, -17.4813, 1.13385, 0.116793)
