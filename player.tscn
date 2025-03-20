@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://nssg58x4p3tw"]
+[gd_scene load_steps=7 format=3 uid="uid://nssg58x4p3tw"]
 
 [ext_resource type="Script" path="res://script/Player.gd" id="1_qxcmj"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://pause_menu.tscn" id="2_blwle"]
+[ext_resource type="Texture2D" uid="uid://d6l0aja1nmsb" path="res://Custom textures/hardcore-heart.png" id="3_mff4v"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_b4l4k"]
 
@@ -17,9 +18,12 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hartje1", "hartje2", "health_ui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_qxcmj")
+hartje1 = NodePath("Health/Hartje1")
+hartje2 = NodePath("Health/Hartje2")
+health_ui = NodePath("Health")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_b4l4k")
@@ -54,10 +58,27 @@ replication_config = SubResource("SceneReplicationConfig_erark")
 
 [node name="pause_menu" parent="." instance=ExtResource("2_blwle")]
 
-[node name="Control" type="Control" parent="."]
+[node name="Health" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Hartje1" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 113.0
+offset_bottom = 112.0
+texture = ExtResource("3_mff4v")
+expand_mode = 1
+
+[node name="Hartje2" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 2.0
+offset_right = 192.0
+offset_bottom = 114.0
+texture = ExtResource("3_mff4v")
+expand_mode = 1
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

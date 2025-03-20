@@ -20,7 +20,9 @@ var gravity = 9.81
 @onready var nek = $nek2
 @onready var camera = $nek2/Camera3D
 @onready var pause_menu = $pause_menu
-
+@export var hartje1 : TextureRect
+@export var hartje2 : TextureRect
+@export var health_ui : Control
 
 var owner_id = 1
 
@@ -115,4 +117,11 @@ func _on_area_3d_body_entered(body):
 
 func healthdepleted():
 	health -= 1
+	if health == 1:
+		hartje2.hide()
+	if health == 0:
+		death()
+
+func death():
+	health_ui.hide()
 	
