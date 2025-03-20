@@ -1,5 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://bs5bewrt7rc81"]
 
+[ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://ui.tscn" id="1_21tic"]
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
 [ext_resource type="Script" path="res://level.gd" id="1_gfghv"]
 [ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="2_7e2xc"]
@@ -18,6 +19,9 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="12_xjt1k"]
 [ext_resource type="PackedScene" uid="uid://bj2gjv51i0x1n" path="res://import/models/cabin.glb" id="14_jynqg"]
 [ext_resource type="PackedScene" uid="uid://bfkdco0mh48ed" path="res://import/models/campfire.glb" id="15_n3cvc"]
+[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="15_yhl83"]
+[ext_resource type="PackedScene" uid="uid://o0u5245tvq5b" path="res://toad note.tscn" id="17_2b4uh"]
+
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sn0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -38,7 +42,9 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
+
 [sub_resource type="Resource" id="Resource_nibox"]
+
 script = ExtResource("5_hfcmm")
 amount = 2000
 enabled = true
@@ -58,7 +64,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
+
 [sub_resource type="Resource" id="Resource_7pie1"]
+
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -69,6 +77,7 @@ override_global_seed = false
 custom_seed = 0
 restrict_height = true
 reference_frame = 0
+
 
 [sub_resource type="Resource" id="Resource_u55bo"]
 script = ExtResource("8_y8xd7")
@@ -100,6 +109,7 @@ reference_frame = 2
 script = ExtResource("4_yecyg")
 stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_nibox"), SubResource("Resource_2tjsd"), SubResource("Resource_7pie1"), SubResource("Resource_u55bo"), SubResource("Resource_d4ykx")])
 
+
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
 size = Vector3(312.999, 1.24394, 312.518)
@@ -114,6 +124,8 @@ player_scene = ExtResource("2_7e2xc")
 players_container = NodePath("Players/PlayersContainer")
 spawn_points = [NodePath("Players/Spawn points/SpawnPoint0"), NodePath("Players/Spawn points/SpawnPoint1"), NodePath("Players/Spawn points/SpawnPoint2"), NodePath("Players/Spawn points/SpawnPoint3"), NodePath("Players/Spawn points/SpawnPoint4"), NodePath("Players/Spawn points/SpawnPoint5")]
 toad_scene = ExtResource("3_bse70")
+
+[node name="UI" parent="." instance=ExtResource("1_21tic")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -134,6 +146,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
+
 modifier_stack = SubResource("Resource_rln2c")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
@@ -164,6 +177,8 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.
 [node name="Player" parent="." instance=ExtResource("2_7e2xc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26015, 1.26315, -0.456293)
 
+[node name="Toad-poster" parent="." instance=ExtResource("17_2b4uh")]
+transform = Transform3D(-6.55671e-09, 0.205, -8.52372e-09, 0, -8.96083e-09, -0.195, -0.15, -8.96083e-09, 3.72584e-16, -17.4813, 1.13385, 0.116793)
 [node name="map" type="Node3D" parent="."]
 
 [node name="floor" type="CSGBox3D" parent="map"]
