@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://coeht4oivneji"]
+
+[ext_resource type="Material" uid="uid://bswvn6yyetxns" path="res://marterials/toad-note.tres" id="1_t6kjk"]
+[ext_resource type="Script" path="res://script/toad_note.gd" id="1_th30v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7sdmu"]
+size = Vector3(2.03244, 0.333496, 1.97852)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_puf8d"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(0.34, 0, 0, 0, 0.145, 0, 0, 0, 0.535, 0, 0.0361794, 0)
+script = ExtResource("1_th30v")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.227682, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.954992, 0, 0, 0, 3.78, 0, 0, 0, 0.955, -0.0392748, -0.00956428, -0.0302734)
+shape = SubResource("BoxShape3D_7sdmu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0838224, 0)
+material_override = ExtResource("1_t6kjk")
+mesh = SubResource("PlaneMesh_puf8d")

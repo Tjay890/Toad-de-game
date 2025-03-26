@@ -3,7 +3,6 @@ extends CharacterBody3D
 #@onready var visual : Node3D = $MeshInstance3D
 
 var speed
-var sprint_slider
 var sprint_drain_amount = 0.7
 var sprint_refresh_amount = 0.1
 const WALK_SPEED = 3.0
@@ -22,7 +21,7 @@ var gravity = 9.81
 @onready var nek = $nek2
 @onready var camera = $nek2/Camera3D
 @onready var pause_menu = $pause_menu
-
+@export var sprint_slider : HSlider
 
 var owner_id = 1
 
@@ -77,6 +76,7 @@ func _physics_process(delta):
 		speed = SPRINT_SPEED
 	else :
 		speed = WALK_SPEED
+		
 	
 
 func _process(delta):

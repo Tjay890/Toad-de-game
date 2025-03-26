@@ -3,6 +3,8 @@ extends CharacterBody3D
 #@onready var visual : Node3D = $MeshInstance3D
 
 var speed
+var sprint_drain_amount = 0.7
+var sprint_refresh_amount = 0.1
 const WALK_SPEED = 3.0
 const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -18,6 +20,7 @@ var gravity = 9.81
 @export var pause_menu : ColorRect
 @onready var nek = $Nek
 @onready var camera = $Nek/Camera3D
+@export var sprint_slider : HSlider
 
 var owner_id = 1
 
@@ -60,6 +63,7 @@ func _physics_process(delta):
 
 	#handle sprint
 	if Input.is_action_pressed("sprint"):
+		sprint_slider.visible = true
 		speed = SPRINT_SPEED
 	else :
 		speed = WALK_SPEED
@@ -67,8 +71,42 @@ func _physics_process(delta):
 
 
 
+
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	#var input_dir = Input.get_vector("left", "right", "up", "down")
+	#var direction = (nek.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	#if is_on_floor():
+		#if direction:
+		#	velocity.x = direction.x * speed
+		#	velocity.z = direction.z * speed
+		#else:
+		#	velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
+		#	velocity.z = lerp(velocity.z, direction.z * speed, delta * 7.0)
+	#else:
+	#	velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
+	#	velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
+	
+	#head bob
+	#t_bob += delta * velocity.length() * float(is_on_floor())
+	#camera.transform.origin = _headbob(t_bob)
+
+
+	#move_and_slide()
+
+
+func _process(delta):
+	if speed == SPRINT_SPEED:
+		sprint_slider.value = sprint_slider.value - sprint_drain_amount * delta
+		if sprint_slider.value == sprint_slider.min_value:
+			speed = WALK_SPEED
+	if speed != SPRINT_SPEED:
+		if sprint_slider.value < sprint_slider.max_value:
+			sprint_slider.value = sprint_slider.value + sprint_refresh_amount * delta
+		if sprint_slider.value == sprint_slider.max_value:
+			sprint_slider.visible = false
+
+
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction = (nek.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if is_on_floor():
@@ -88,7 +126,6 @@ func _physics_process(delta):
 
 
 	move_and_slide()
-
 
 
 func _headbob(time) -> Vector3:
