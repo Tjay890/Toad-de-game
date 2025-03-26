@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 #@onready var visual : Node3D = $MeshInstance3D
-
+var cd = 0.0
 var speed
 const WALK_SPEED = 3.0
 const SPRINT_SPEED = 5.0
@@ -22,6 +22,7 @@ var gravity = 9.81
 @export var hitbox : Area3D
 @export var collisionshape: CollisionShape3D
 @export var spawned_knife: PackedScene
+@export var spawn_point: Node3D
 
 var owner_id = 1
 
@@ -102,22 +103,26 @@ func _headbob(time) -> Vector3:
 	return pos 
 
 func _input(event: InputEvent) -> void: 
-	if event.is_action_pressed("attack") and event.is_action_pressed("charge"):
-		shoot()
-	
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
 
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_pressed("attack") and (Input.is_action_pressed("charge") and cd > 2):
+		shoot()
+		cd = 0
+		animation.play("Idle")
+	elif Input.is_action_just_pressed("attack"):
 		hitbox.set_collision_layer_value(3, true)
 		hitbox.set_collision_mask_value(2, true)
 		animation.play("Attack")
 		hitbox.monitoring = true
-	if Input.is_action_just_pressed("charge"):
+	if Input.is_action_just_pressed("charge") and cd > 2:
 		animation.play("Throw_charge")
+	if Input.is_action_just_released("charge"):
+		animation.play("Idle")
+	cd += delta
 
 
 func _on_animation_player_animation_finished(anim_name):
@@ -134,4 +139,11 @@ func _on_hitbox_area_entered(area):
 		print("hit")
 
 func shoot():
-	pass
+	var new_knife = spawned_knife.instantiate()
+	print(spawn_point.global_position)
+	print(spawn_point.global_rotation)
+	print(nek.global_rotation)
+	new_knife.rotate_x(deg_to_rad(nek.global_rotation.x))
+	new_knife.rotate_y(deg_to_rad(camera.global_rotation.y))
+	new_knife.position = spawn_point.global_position
+	add_child(new_knife)
