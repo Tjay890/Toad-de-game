@@ -21,6 +21,7 @@ var gravity = 9.81
 @export var animation : AnimationPlayer
 @export var hitbox : Area3D
 @export var collisionshape: CollisionShape3D
+@export var spawned_knife: PackedScene
 
 var owner_id = 1
 
@@ -101,8 +102,13 @@ func _headbob(time) -> Vector3:
 	return pos 
 
 func _input(event: InputEvent) -> void: 
+	if event.is_action_pressed("attack") and event.is_action_pressed("charge"):
+		shoot()
+	
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
+
+
 
 func _process(delta):
 	if Input.is_action_just_pressed("attack"):
@@ -110,6 +116,8 @@ func _process(delta):
 		hitbox.set_collision_mask_value(2, true)
 		animation.play("Attack")
 		hitbox.monitoring = true
+	if Input.is_action_just_pressed("charge"):
+		animation.play("Throw_charge")
 
 
 func _on_animation_player_animation_finished(anim_name):
@@ -124,3 +132,6 @@ func _on_animation_player_animation_finished(anim_name):
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("players"):
 		print("hit")
+
+func shoot():
+	pass

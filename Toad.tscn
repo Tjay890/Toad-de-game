@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://ddkapc5aro1m3"]
+[gd_scene load_steps=15 format=3 uid="uid://ddkapc5aro1m3"]
 
 [ext_resource type="Script" path="res://script/Player_toad.gd" id="1_eplmw"]
+[ext_resource type="PackedScene" uid="uid://bdw4xfcue8ytt" path="res://knife_throw.tscn" id="2_ejgl3"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://pause_menu.tscn" id="2_vlky7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41q6b"]
@@ -173,6 +174,7 @@ pause_menu = NodePath("PauseMenu")
 animation = NodePath("AnimationPlayer")
 hitbox = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes")
 collisionshape = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes/CollisionShape3D")
+spawned_knife = ExtResource("2_ejgl3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -200,7 +202,7 @@ spot_angle_attenuation = 3.0
 [node name="WeaponPivot" type="Node3D" parent="Nek/Camera3D"]
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="Nek/Camera3D/WeaponPivot"]
-transform = Transform3D(0.0997874, -0.0649287, -0.000568053, 0.00651767, 0.994076, 0.00869704, -4.65661e-11, -0.0871556, 0.0996195, 0.258627, -0.30258, -0.363456)
+transform = Transform3D(0.0997874, -0.0649287, -0.000568052, 0.00651767, 0.994076, 0.00869704, -4.65661e-11, -0.0871556, 0.0996195, 0.258627, -0.30258, -0.363456)
 mesh = SubResource("BoxMesh_2qkgi")
 
 [node name="Mes" type="Area3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh"]
