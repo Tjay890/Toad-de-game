@@ -36,7 +36,6 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_0urwe")
 
 [node name="nek2" type="Node3D" parent="."]
@@ -81,4 +80,5 @@ offset_bottom = 114.0
 texture = ExtResource("3_mff4v")
 expand_mode = 1
 
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

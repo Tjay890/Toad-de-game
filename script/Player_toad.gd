@@ -20,6 +20,7 @@ var gravity = 9.81
 @onready var camera = $Nek/Camera3D
 @export var animation : AnimationPlayer
 @export var hitbox : Area3D
+@export var collisionshape: CollisionShape3D
 
 var owner_id = 1
 
@@ -105,6 +106,8 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta):
 	if Input.is_action_just_pressed("attack"):
+		hitbox.set_collision_layer_value(3, true)
+		hitbox.set_collision_mask_value(2, true)
 		animation.play("Attack")
 		hitbox.monitoring = true
 
@@ -113,8 +116,11 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Attack":
 		animation.play("Idle")
 		hitbox.monitoring = false
+		hitbox.set_collision_layer_value(3, false)
+		hitbox.set_collision_mask_value(2, false)
+		
 
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("players"):
-		pause_menu.pause()
+		print("hit")

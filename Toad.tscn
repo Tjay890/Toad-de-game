@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ddkapc5aro1m3"]
+[gd_scene load_steps=14 format=3 uid="uid://ddkapc5aro1m3"]
 
 [ext_resource type="Script" path="res://script/Player_toad.gd" id="1_eplmw"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://pause_menu.tscn" id="2_vlky7"]
@@ -144,18 +144,35 @@ tracks/2/keys = {
 "values": [Vector3(-0.0870804, -0.00570216, 0.0654714)]
 }
 
+[sub_resource type="Animation" id="Animation_ioufb"]
+resource_name = "Throw_charge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.416745, 0.227517, -0.367752)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_586pg"]
 _data = {
 "Attack": SubResource("Animation_6kq86"),
 "Idle": SubResource("Animation_0xdgj"),
-"RESET": SubResource("Animation_4rw74")
+"RESET": SubResource("Animation_4rw74"),
+"Throw_charge": SubResource("Animation_ioufb")
 }
 
-[node name="Toad" type="CharacterBody3D" node_paths=PackedStringArray("pause_menu", "animation", "hitbox")]
+[node name="Toad" type="CharacterBody3D" node_paths=PackedStringArray("pause_menu", "animation", "hitbox", "collisionshape")]
 script = ExtResource("1_eplmw")
 pause_menu = NodePath("PauseMenu")
 animation = NodePath("AnimationPlayer")
-hitbox = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Hitbox")
+hitbox = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes")
+collisionshape = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes/CollisionShape3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -183,12 +200,14 @@ spot_angle_attenuation = 3.0
 [node name="WeaponPivot" type="Node3D" parent="Nek/Camera3D"]
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="Nek/Camera3D/WeaponPivot"]
-transform = Transform3D(0.0997874, -0.0649287, -0.000568052, 0.00651767, 0.994076, 0.00869704, -4.65661e-11, -0.0871556, 0.0996195, 0.258627, -0.30258, -0.363456)
+transform = Transform3D(0.0997874, -0.0649287, -0.000568053, 0.00651767, 0.994076, 0.00869704, -4.65661e-11, -0.0871556, 0.0996195, 0.258627, -0.30258, -0.363456)
 mesh = SubResource("BoxMesh_2qkgi")
 
-[node name="Hitbox" type="Area3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh"]
+[node name="Mes" type="Area3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh"]
+collision_layer = 0
+collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh/Hitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh/Mes"]
 transform = Transform3D(1, 0, 1.86265e-09, -3.72529e-09, 1, 7.567e-10, 9.31323e-10, -3.72529e-08, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_i4dam")
 
@@ -203,5 +222,5 @@ libraries = {
 }
 autoplay = "Idle"
 
-[connection signal="area_entered" from="Nek/Camera3D/WeaponPivot/WeaponMesh/Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="Nek/Camera3D/WeaponPivot/WeaponMesh/Mes" to="." method="_on_hitbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

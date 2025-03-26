@@ -111,9 +111,7 @@ func _input(event: InputEvent) -> void:
 
 
 
-func _on_area_3d_body_entered(body):
-	if body.name == "Test doos":
-		healthdepleted()
+
 
 func healthdepleted():
 	health -= 1
@@ -125,3 +123,9 @@ func healthdepleted():
 func death():
 	health_ui.hide()
 	
+
+
+func _on_area_3d_area_entered(area):
+	print(area.name)
+	if area.name == "Mes":
+		healthdepleted()
