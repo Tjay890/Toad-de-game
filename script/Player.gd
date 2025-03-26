@@ -80,15 +80,15 @@ func _physics_process(delta):
 	
 
 func _process(delta):
-	if speed == SPRINT_SPEED:
-		sprint_slider.value = sprint_slider.value - sprint_drain_amount * delta
-		if sprint_slider.value == sprint_slider.min_value:
-			speed = WALK_SPEED
-	if speed != SPRINT_SPEED:
-		if sprint_slider.value < sprint_slider.max_value:
-			sprint_slider.value = sprint_slider.value + sprint_refresh_amount * delta
-		if sprint_slider.value == sprint_slider.max_value:
-			sprint_slider.visible = false
+	#if speed == SPRINT_SPEED:
+	#	sprint_slider.value = sprint_slider.value - sprint_drain_amount * delta
+	#	if sprint_slider.value == sprint_slider.min_value:
+	#		speed = WALK_SPEED
+	#if speed != SPRINT_SPEED:
+	#	if sprint_slider.value < sprint_slider.max_value:
+	#		sprint_slider.value = sprint_slider.value + sprint_refresh_amount * delta
+	#	if sprint_slider.value == sprint_slider.max_value:
+	#		sprint_slider.visible = false
 
 
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://crr02jxhkspgd"]
+[gd_scene load_steps=7 format=3 uid="uid://crr02jxhkspgd"]
 
 [ext_resource type="Script" path="res://script/Player.gd" id="1_qxcmj"]
-[ext_resource type="PackedScene" path="res://pause_menu.tscn" id="2_blwle"]
-[ext_resource type="PackedScene" uid="uid://cdfm8kebittek" path="res://ui.tscn" id="3_plxhh"]
+[ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://scenes/pause_menu.tscn" id="2_blwle"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_b4l4k"]
 
@@ -17,11 +16,12 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[sub_resource type="ImageTexture" id="ImageTexture_nglid"]
+[sub_resource type="ImageTexture" id="ImageTexture_xcb6l"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sprint_slider") groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_qxcmj")
+sprint_slider = NodePath("Control/sprint_slider4")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_b4l4k")
@@ -52,15 +52,18 @@ offset_top = 2.0
 offset_right = 1.0
 offset_bottom = 2.0
 
-[node name="UI" parent="." instance=ExtResource("3_plxhh")]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="sprint_slider" type="HSlider" parent="UI"]
-layout_mode = 0
+[node name="sprint_slider4" type="HSlider" parent="Control"]
 offset_left = 3.0
 offset_top = 625.0
 offset_right = 412.0
 offset_bottom = 646.0
-theme_override_icons/grabber = SubResource("ImageTexture_nglid")
+theme_override_icons/grabber = SubResource("ImageTexture_xcb6l")
 max_value = 1.0
 step = 0.0
 value = 1.0
