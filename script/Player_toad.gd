@@ -22,7 +22,7 @@ var gravity = 9.81
 @export var hitbox : Area3D
 @export var collisionshape: CollisionShape3D
 @export var spawned_knife: PackedScene
-@export var spawn_point: Node3D
+@export var spawn_point: RayCast3D
 
 var owner_id = 1
 
@@ -109,7 +109,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta):
-	if Input.is_action_pressed("attack") and (Input.is_action_pressed("charge") and cd > 2):
+	if Input.is_action_pressed("attack") and (Input.is_action_pressed("charge") and cd > 0):
 		shoot()
 		cd = 0
 		animation.play("Idle")
@@ -118,12 +118,12 @@ func _process(delta):
 		hitbox.set_collision_mask_value(2, true)
 		animation.play("Attack")
 		hitbox.monitoring = true
-	if Input.is_action_just_pressed("charge") and cd > 2:
+	if Input.is_action_pressed("charge") and cd > 0:
 		animation.play("Throw_charge")
 	if Input.is_action_just_released("charge"):
 		animation.play("Idle")
 	cd += delta
-
+	
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Attack":
@@ -140,10 +140,6 @@ func _on_hitbox_area_entered(area):
 
 func shoot():
 	var new_knife = spawned_knife.instantiate()
-	print(spawn_point.global_position)
-	print(spawn_point.global_rotation)
-	print(nek.global_rotation)
-	new_knife.rotate_x(deg_to_rad(nek.global_rotation.x))
-	new_knife.rotate_y(deg_to_rad(camera.global_rotation.y))
 	new_knife.position = spawn_point.global_position
-	add_child(new_knife)
+	new_knife.transform.basis = spawn_point.global_transform.basis
+	get_parent().add_child(new_knife)

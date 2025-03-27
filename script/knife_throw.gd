@@ -1,33 +1,23 @@
-extends RigidBody3D
+extends Node3D
 
-@export var force: float = 20
-@export var speed: float = 1.0
-@export var g : Vector3 = Vector3.DOWN * 9
-@export var collision : CollisionShape3D
-@export var cast : RayCast3D
-@onready var t = 0
+const SPEED = 40.0
 
-var velocity : Vector3
-var init_xy : int = 0
-var init_xz : int = 0
+@onready var mesh = $MeshInstance3D
+@onready var ray = $RayCast3D
 
 func _ready():
-	rotate_x(init_xy)
-	rotate_y(init_xz)
-	velocity -= transform.basis.y * force
+	pass
 
 func _process(delta):
-	#if t > 100:
-		#queue_free()
-	t += delta
+	position += transform.basis * Vector3(0,0,-SPEED)* delta
+	if ray.is_colliding():
+		mesh.visible =false
+		ray.enabled = false
+		if ray.get_collider().is_in_group("players"):
+			print("ray hit")
+			ray.get_collider().hit()
+		await get_tree().create_timer(1.0).timeout
+		queue_free()
 
-func _physics_process(delta):
-	if !cast.is_colliding():
-		velocity += g * delta * speed
-		look_at(transform.origin + velocity.normalized(), Vector3.UP)
-		move_and_collide(velocity*delta*speed)
-		
-	else:
-		collision.disabled = true
-func drop():
-	pass
+func _on_timer_timeout():
+	queue_free()

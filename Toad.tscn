@@ -190,7 +190,7 @@ animation = NodePath("AnimationPlayer")
 hitbox = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes")
 collisionshape = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes/CollisionShape3D")
 spawned_knife = ExtResource("2_ejgl3")
-spawn_point = NodePath("spawnPoint")
+spawn_point = NodePath("Nek/Camera3D/RayCast3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -218,7 +218,7 @@ spot_angle_attenuation = 3.0
 [node name="WeaponPivot" type="Node3D" parent="Nek/Camera3D"]
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="Nek/Camera3D/WeaponPivot"]
-transform = Transform3D(0.0997874, -0.0649286, -0.000567787, 0.000626323, 0.0088155, 0.0999942, -0.00648748, -0.99785, 0.000920343, 0.416745, 0.227517, -0.367752)
+transform = Transform3D(0.0997874, -0.0649283, -0.0005679, 0.000626447, 0.00881725, 0.0999942, -0.00648745, -0.99785, 0.000920525, 0.416745, 0.227517, -0.367752)
 mesh = SubResource("BoxMesh_2qkgi")
 
 [node name="Mes" type="Area3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh"]
@@ -228,6 +228,10 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh/Mes"]
 transform = Transform3D(1, 1.20224e-07, 2.56557e-09, -3.75756e-09, 1, 9.31323e-10, 8.94269e-10, 1.78814e-07, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_i4dam")
+
+[node name="RayCast3D" type="RayCast3D" parent="Nek/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.50761)
+target_position = Vector3(0, 0, -1)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vq1u0")

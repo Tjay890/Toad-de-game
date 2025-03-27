@@ -2,38 +2,33 @@
 
 [ext_resource type="Script" path="res://script/knife_throw.gd" id="1_dwqem"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_mi1wb"]
+[sub_resource type="BoxMesh" id="BoxMesh_n6frh"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_76e8t"]
-points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ovlti"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
-[node name="RigidBody3D" type="RigidBody3D" node_paths=PackedStringArray("collision", "cast")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-collision_layer = 4
+[node name="Node3D" type="Node3D"]
 script = ExtResource("1_dwqem")
-collision = NodePath("mes_werp_mesh/Mes_werp/mes_werp_collision_shape")
-cast = NodePath("mes_werp_mesh/Mes_werp/RayCast3D")
 
-[node name="mes_werp_mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, -4.37114e-08, 0.1, 0, -0.999999, -4.37114e-09, 0, 0, 0)
-mesh = SubResource("BoxMesh_mi1wb")
-skeleton = NodePath("")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_n6frh")
 
-[node name="Mes_werp" type="Area3D" parent="mes_werp_mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 4.44089e-16, 0, 2.84217e-14, 1, 0, 0, 0)
-collision_layer = 4
-collision_mask = 0
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -0.6)
+collision_mask = 3
 
-[node name="mes_werp_collision_shape" type="CollisionShape3D" parent="mes_werp_mesh/Mes_werp"]
-transform = Transform3D(1, 0, 1.86265e-09, -3.72529e-09, 1, 7.567e-10, 9.31323e-10, -3.72529e-08, 1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_76e8t")
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
 
-[node name="RayCast3D" type="RayCast3D" parent="mes_werp_mesh/Mes_werp"]
-transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 1.42109e-13, 1, 0, -0.5, 0)
-target_position = Vector3(0, 1, 0)
-collide_with_areas = true
-collide_with_bodies = false
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ovlti")
 
-[node name="mes_werp_collision_shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 1.86265e-09, -3.72529e-09, 1, 7.567e-10, 9.31323e-10, -3.72529e-08, 1, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_76e8t")
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

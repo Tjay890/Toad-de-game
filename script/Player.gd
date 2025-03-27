@@ -125,7 +125,8 @@ func death():
 	
 
 
-func _on_area_3d_area_entered(area):
-	print(area.name)
-	if area.name == "Mes":
-		healthdepleted()
+
+
+func _on_area_3d_body_part_hit(dam):
+	print("signal werkt")
+	healthdepleted()
