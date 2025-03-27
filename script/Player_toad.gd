@@ -103,13 +103,21 @@ func _headbob(time) -> Vector3:
 	return pos 
 
 func _input(event: InputEvent) -> void: 
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
 
 
 
 func _process(delta):
-	if Input.is_action_pressed("attack") and (Input.is_action_pressed("charge") and cd > 0):
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
+	if Input.is_action_just_pressed("attack") and (Input.is_action_pressed("charge") and cd > 0):
 		shoot()
 		cd = 0
 		animation.play("Idle")
@@ -126,6 +134,10 @@ func _process(delta):
 	
 
 func _on_animation_player_animation_finished(anim_name):
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
 	if anim_name == "Attack":
 		animation.play("Idle")
 		hitbox.monitoring = false
@@ -135,6 +147,10 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_hitbox_area_entered(area):
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
 	if area.is_in_group("players"):
 		print("hit")
 
@@ -142,4 +158,4 @@ func shoot():
 	var new_knife = spawned_knife.instantiate()
 	new_knife.position = spawn_point.global_position
 	new_knife.transform.basis = spawn_point.global_transform.basis
-	get_parent().add_child(new_knife)
+	get_parent().add_child(new_knife, true)

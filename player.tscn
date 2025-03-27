@@ -18,6 +18,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("Health:clip_contents")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hartje1", "hartje2", "health_ui")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -60,6 +63,7 @@ replication_config = SubResource("SceneReplicationConfig_erark")
 [node name="pause_menu" parent="." instance=ExtResource("2_blwle")]
 
 [node name="Health" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

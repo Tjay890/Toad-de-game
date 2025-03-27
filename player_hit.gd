@@ -13,6 +13,7 @@ func _ready():
 func _process(delta):
 	pass
 
+@rpc ("call_local","any_peer", "reliable")
 func hit():
 	print("player hit")
 	emit_signal("body_part_hit", damage)

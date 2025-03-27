@@ -37,6 +37,7 @@ func _enter_tree():
 func _ready():
 	if owner_id != multiplayer.get_unique_id():
 		return
+	health_ui.show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
 
@@ -105,8 +106,13 @@ func _headbob(time) -> Vector3:
 	return pos 
 
 func _input(event: InputEvent) -> void: 
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
+
 
 
 
