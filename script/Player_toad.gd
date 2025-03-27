@@ -7,7 +7,7 @@ const WALK_SPEED = 3.0
 const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
-
+var pickedup = true
 #bob variables
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
@@ -23,7 +23,7 @@ var gravity = 9.81
 @export var collisionshape: CollisionShape3D
 @export var spawned_knife: PackedScene
 @export var spawn_point: RayCast3D
-
+@export var mes_mesh: MeshInstance3D
 var owner_id = 1
 
 func _enter_tree():
@@ -113,24 +113,25 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta):
-	if multiplayer.multiplayer_peer == null:
-		return
-	if owner_id != multiplayer.get_unique_id():
-		return
-	if Input.is_action_just_pressed("attack") and (Input.is_action_pressed("charge") and cd > 0):
-		shoot()
-		cd = 0
-		animation.play("Idle")
-	elif Input.is_action_just_pressed("attack"):
-		hitbox.set_collision_layer_value(3, true)
-		hitbox.set_collision_mask_value(2, true)
-		animation.play("Attack")
-		hitbox.monitoring = true
-	if Input.is_action_pressed("charge") and cd > 0:
-		animation.play("Throw_charge")
-	if Input.is_action_just_released("charge"):
-		animation.play("Idle")
-	cd += delta
+	if pickedup == true:
+		if multiplayer.multiplayer_peer == null:
+			return
+		if owner_id != multiplayer.get_unique_id():
+			return
+		if Input.is_action_just_pressed("attack") and (Input.is_action_pressed("charge") and cd > 0):
+			shoot()
+			cd = 0
+			animation.play("Idle")
+		elif Input.is_action_just_pressed("attack"):
+			hitbox.set_collision_layer_value(3, true)
+			hitbox.set_collision_mask_value(2, true)
+			animation.play("Attack")
+			hitbox.monitoring = true
+		if Input.is_action_pressed("charge") and cd > 0:
+			animation.play("Throw_charge")
+		if Input.is_action_just_released("charge"):
+			animation.play("Idle")
+		cd += delta
 	
 
 func _on_animation_player_animation_finished(anim_name):
@@ -154,7 +155,17 @@ func _on_hitbox_area_entered(area):
 		
 
 func shoot():
+	pickedup = false
+	mes_mesh.hide()
 	var new_knife = spawned_knife.instantiate()
 	new_knife.position = spawn_point.global_position
 	new_knife.transform.basis = spawn_point.global_transform.basis
 	get_parent().add_child(new_knife, true)
+	
+
+
+func picked_up():
+	print("Picked up")
+	pickedup = true
+	mes_mesh.show()
+
