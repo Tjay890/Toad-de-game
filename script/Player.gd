@@ -10,6 +10,9 @@ const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
 
+#posters
+var Poster: int 
+
 #bob variables
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
@@ -21,7 +24,7 @@ var gravity = 9.81
 @onready var nek = $nek2
 @onready var camera = $nek2/Camera3D
 @onready var pause_menu = $pause_menu
-@export var sprint_slider : HSlider
+@onready var sprint_slider = $UI/sprint_slider
 
 var owner_id = 1
 
@@ -39,7 +42,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	
-	sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
+	#sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
 
 	camera.current = true
 
@@ -80,15 +83,15 @@ func _physics_process(delta):
 	
 
 func _process(delta):
-	#if speed == SPRINT_SPEED:
-	#	sprint_slider.value = sprint_slider.value - sprint_drain_amount * delta
-	#	if sprint_slider.value == sprint_slider.min_value:
-	#		speed = WALK_SPEED
-	#if speed != SPRINT_SPEED:
-	#	if sprint_slider.value < sprint_slider.max_value:
-	#		sprint_slider.value = sprint_slider.value + sprint_refresh_amount * delta
-	#	if sprint_slider.value == sprint_slider.max_value:
-	#		sprint_slider.visible = false
+	if speed == SPRINT_SPEED:
+		sprint_slider.value = sprint_slider.value - sprint_drain_amount * delta
+		if sprint_slider.value == sprint_slider.min_value:
+			speed = WALK_SPEED
+	if speed != SPRINT_SPEED:
+		if sprint_slider.value < sprint_slider.max_value:
+			sprint_slider.value = sprint_slider.value + sprint_refresh_amount * delta
+		if sprint_slider.value == sprint_slider.max_value:
+			sprint_slider.visible = false
 
 
 
@@ -128,3 +131,9 @@ func _headbob(time) -> Vector3:
 func _input(event: InputEvent) -> void: 
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
+
+
+
+func AddPoster(value:int):
+	Poster += value
+	print(Poster)

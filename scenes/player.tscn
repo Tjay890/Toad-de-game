@@ -19,7 +19,7 @@ properties/1/replication_mode = 1
 
 [sub_resource type="ImageTexture" id="ImageTexture_nglid"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_qxcmj")
 
