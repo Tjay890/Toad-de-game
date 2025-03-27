@@ -11,7 +11,12 @@ const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
 
 #posters
-var Poster: int 
+var Poster: int:
+	set(new_value):
+		Poster = new_value
+		emit_signal("posterUpdated",Poster)
+
+signal posterUpdated(newValue)
 
 #bob variables
 const BOB_FREQ = 2.0

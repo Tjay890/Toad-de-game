@@ -39,7 +39,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_qkeqf"]
+[sub_resource type="Resource" id="Resource_pjl1l"]
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -48,7 +48,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_cxh48"]
+[sub_resource type="Resource" id="Resource_khcx1"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_wcros"]
+[sub_resource type="Resource" id="Resource_hg1qs"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -71,7 +71,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_af185"]
+[sub_resource type="Resource" id="Resource_w335a"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -87,9 +87,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_55nt6"]
+[sub_resource type="Resource" id="Resource_h7830"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_qkeqf"), SubResource("Resource_cxh48"), SubResource("Resource_wcros"), SubResource("Resource_af185")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_pjl1l"), SubResource("Resource_khcx1"), SubResource("Resource_hg1qs"), SubResource("Resource_w335a")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -127,7 +127,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-modifier_stack = SubResource("Resource_55nt6")
+modifier_stack = SubResource("Resource_h7830")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -228,17 +228,31 @@ spawn_path = NodePath("../PlayersContainer")
 _spawnable_scenes = PackedStringArray("res://Toad.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
-[node name="Poster" type="Node3D" parent="."]
+[node name="All_Posters" type="Node" parent="."]
+
+[node name="Poster" type="Node3D" parent="All_Posters"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6938, 0.329688, 0.137126)
 script = ExtResource("18_djkef")
 
-[node name="VisualNode" parent="Poster" instance=ExtResource("19_j8tdd")]
+[node name="VisualNode" parent="All_Posters/Poster" instance=ExtResource("19_j8tdd")]
 
-[node name="Area3D" type="Area3D" parent="Poster"]
+[node name="Area3D" type="Area3D" parent="All_Posters/Poster"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Poster/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters/Poster/Area3D"]
+shape = SubResource("SphereShape3D_i3n3r")
+
+[node name="Poster2" type="Node3D" parent="All_Posters"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6938, 0.329688, -5.17165)
+script = ExtResource("18_djkef")
+
+[node name="VisualNode" parent="All_Posters/Poster2" instance=ExtResource("19_j8tdd")]
+
+[node name="Area3D" type="Area3D" parent="All_Posters/Poster2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters/Poster2/Area3D"]
 shape = SubResource("SphereShape3D_i3n3r")
 
 [connection signal="spawned" from="Players/PlayerSpawner" to="." method="_on_player_spawner_spawned"]
 [connection signal="spawned" from="Players/ToadSpawner" to="." method="_on_toad_spawner_spawned"]
-[connection signal="body_entered" from="Poster/Area3D" to="Poster" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="All_Posters/Poster/Area3D" to="All_Posters/Poster" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="All_Posters/Poster2/Area3D" to="All_Posters/Poster2" method="_on_area_3d_body_entered"]
