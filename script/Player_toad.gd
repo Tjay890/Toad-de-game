@@ -147,12 +147,11 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_hitbox_area_entered(area):
-	if multiplayer.multiplayer_peer == null:
-		return
-	if owner_id != multiplayer.get_unique_id():
-		return
 	if area.is_in_group("players"):
+		hitbox.set_deferred("monitoring", false)
 		print("hit")
+		area.hit.rpc()
+		
 
 func shoot():
 	var new_knife = spawned_knife.instantiate()

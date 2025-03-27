@@ -27,9 +27,15 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("AnimationPlayer:current_animation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Nek/Camera3D/WeaponPivot:rotation")
+properties/3/path = NodePath("Nek:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes/CollisionShape3D:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes/CollisionShape3D:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [sub_resource type="Animation" id="Animation_6kq86"]
 resource_name = "Attack"

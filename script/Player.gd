@@ -123,7 +123,7 @@ func healthdepleted():
 	health -= 1
 	if health == 1:
 		hartje2.hide()
-	if health == 0:
+	if health < 0:
 		death()
 
 func death():

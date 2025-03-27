@@ -18,7 +18,13 @@ func _process(delta):
 			print("ray hit")
 			ray.get_collider().hit.rpc()
 		await get_tree().create_timer(1.0).timeout
-		queue_free()
+		if not multiplayer.is_server():
+			return
+		else:
+			queue_free()
 
 func _on_timer_timeout():
-	queue_free()
+	if not multiplayer.is_server():
+		return
+	else:
+		queue_free()
