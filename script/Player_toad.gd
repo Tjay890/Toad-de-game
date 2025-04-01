@@ -162,12 +162,12 @@ func _on_hitbox_area_entered(area):
 func shoot():
 	if multiplayer.multiplayer_peer == null:
 			return
-	if owner_id != multiplayer.get_unique_id():
-			if multiplayer.is_server():
-				var new_knife = spawned_knife.instantiate()
-				new_knife.position = spawn_point.global_position
-				new_knife.transform.basis = spawn_point.global_transform.basis
-				get_parent().add_child(new_knife, true)
+
+	if multiplayer.is_server():
+		var new_knife = spawned_knife.instantiate()
+		new_knife.position = spawn_point.global_position
+		new_knife.transform.basis = spawn_point.global_transform.basis
+		get_parent().add_child(new_knife, true)
 	pickedup = false
 	
 	
