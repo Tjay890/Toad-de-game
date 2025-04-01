@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddkapc5aro1m3"]
+[gd_scene load_steps=16 format=3 uid="uid://ddkapc5aro1m3"]
 
 [ext_resource type="Script" path="res://script/Player_toad.gd" id="1_eplmw"]
 [ext_resource type="PackedScene" uid="uid://bdw4xfcue8ytt" path="res://knife_throw.tscn" id="2_ejgl3"]
@@ -36,6 +36,9 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh/Mes/CollisionShape3D:rotation")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [sub_resource type="Animation" id="Animation_6kq86"]
 resource_name = "Attack"
@@ -103,7 +106,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector3(0.258627, -0.30258, -0.363456), Vector3(0.258627, -0.458806, -0.363456)]
+"values": [Vector3(0.38944, -0.30258, -0.363456), Vector3(0.395043, -0.295493, -0.363456)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -115,7 +118,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
-"values": [Vector3(-0.0870804, -0.00570216, 0.0654714), Vector3(-0.0843137, -0.0225352, 0.261511)]
+"values": [Vector3(-0.0870804, -0.00570214, 0.0654714), Vector3(-0.0872448, -0.00194674, 0.0223381)]
 }
 
 [sub_resource type="Animation" id="Animation_4rw74"]
@@ -186,11 +189,40 @@ tracks/1/keys = {
 "values": [Vector3(-1.55998, -0.552775, 0.617725), Vector3(-1.55998, -0.552775, 0.617725)]
 }
 
+[sub_resource type="Animation" id="Animation_1nhfi"]
+resource_name = "Throw"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [Vector3(0.35408, 0.122187, -0.367752), Vector3(0.35408, 0.122187, -1.71144)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector3(-1.55998, -0.552775, 0.617725), Vector3(-1.55998, -0.552775, 0.617725)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_586pg"]
 _data = {
 "Attack": SubResource("Animation_6kq86"),
 "Idle": SubResource("Animation_0xdgj"),
 "RESET": SubResource("Animation_4rw74"),
+"Throw": SubResource("Animation_1nhfi"),
 "Throw_charge": SubResource("Animation_ioufb")
 }
 
@@ -231,7 +263,7 @@ spot_angle_attenuation = 3.0
 [node name="WeaponPivot" type="Node3D" parent="Nek/Camera3D"]
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="Nek/Camera3D/WeaponPivot"]
-transform = Transform3D(0.0997874, -0.0649283, -0.0005679, 0.000626447, 0.00881725, 0.0999942, -0.00648745, -0.99785, 0.000920526, 0.416745, 0.227517, -0.367752)
+transform = Transform3D(0.0997874, -0.0649283, -0.0005679, 0.000626447, 0.00881725, 0.0999942, -0.00648745, -0.99785, 0.000920525, 0.416745, 0.227517, -0.367752)
 mesh = SubResource("BoxMesh_2qkgi")
 
 [node name="Mes" type="Area3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh"]
