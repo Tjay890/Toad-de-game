@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://nssg58x4p3tw"]
+[gd_scene load_steps=8 format=3 uid="uid://nssg58x4p3tw"]
 
 [ext_resource type="Script" path="res://script/Player.gd" id="1_qxcmj"]
 [ext_resource type="Script" path="res://script/player_hit.gd" id="2_7xwqn"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://pause_menu.tscn" id="2_blwle"]
 [ext_resource type="Texture2D" uid="uid://d6l0aja1nmsb" path="res://Custom textures/hardcore-heart.png" id="3_mff4v"]
-[ext_resource type="Texture2D" uid="uid://djjdoh16ehy47" path="res://Custom textures/hqdefault.jpg" id="5_hnucy"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_b4l4k"]
 
@@ -55,6 +54,7 @@ spot_angle_attenuation = 3.0
 replication_config = SubResource("SceneReplicationConfig_erark")
 
 [node name="pause_menu" parent="." instance=ExtResource("2_blwle")]
+mouse_filter = 1
 
 [node name="Area3D" type="Area3D" parent="." groups=["players"]]
 collision_layer = 2
@@ -91,45 +91,6 @@ offset_bottom = 114.0
 texture = ExtResource("3_mff4v")
 expand_mode = 1
 
-[node name="Death_screen" type="Control" parent="Health"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="TextureRect" type="TextureRect" parent="Health/Death_screen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_hnucy")
-expand_mode = 1
-
-[node name="StartVBox" type="VBoxContainer" parent="Health/Death_screen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -85.5
-offset_right = 170.0
-offset_bottom = 85.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="QuitButton" type="Button" parent="Health/Death_screen/StartVBox"]
-layout_mode = 2
-text = "Spectate"
-
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_part_hit" from="Area3D" to="." method="_on_area_3d_body_part_hit"]
-[connection signal="pressed" from="Health/Death_screen/StartVBox/QuitButton" to="." method="_on_quit_button_pressed"]

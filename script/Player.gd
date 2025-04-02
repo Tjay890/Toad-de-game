@@ -9,7 +9,6 @@ const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
 var health = 2
-
 #bob variables
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
@@ -25,7 +24,6 @@ var gravity = 9.81
 @export var health_ui : Control
 @export var player : CharacterBody3D
 var owner_id = 1
-@onready var death_screen = $Health/Death_screen
 
 func _enter_tree():
 	owner_id = name.to_int()
@@ -132,13 +130,21 @@ func healthdepleted():
 		death()
 
 func death():
-	hartje2.hide()
+	hartje1.hide()
 	player.hide()
+	print("test voor player dead rpc")
+	player_died.rpc()
+	
 	if multiplayer.get_unique_id() == owner_id:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		death_screen.show()
+		SignalManager.spectator.emit(owner_id)
 		
 	
+
+@rpc ("call_local","any_peer", "reliable")
+func player_died():
+	print("Player dead signal")
+	SignalManager.player_dead.emit()
 
 @rpc ("call_local","any_peer", "reliable")
 func remove_player():
@@ -149,7 +155,3 @@ func _on_area_3d_body_part_hit(dam):
 	healthdepleted()
 
 
-func _on_quit_button_pressed():
-	get_tree().quit
-	SignalManager.on_player_dead.emit()
-	remove_player.rpc_id(1)

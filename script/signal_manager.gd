@@ -1,3 +1,4 @@
 extends Node
 
-signal on_player_dead
+signal spectator(id)
+signal player_dead
