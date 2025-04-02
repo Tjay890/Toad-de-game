@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://coeht4oivneji"]
+
+[ext_resource type="Texture2D" uid="uid://c3tng4475ja13" path="res://Textures/Toad notes-Toad-the-Game.png" id="1_fqubi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x2au0"]
+size = Vector3(0.689453, 0.0175781, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_14e47"]
+albedo_texture = ExtResource("1_fqubi")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0ilel"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_x2au0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(0.345, 0, 0, 0, 1, 0, 0, 0, 0.49, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_14e47")
+mesh = SubResource("PlaneMesh_0ilel")

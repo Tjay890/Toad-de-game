@@ -1,31 +1,28 @@
-
-[gd_scene load_steps=30 format=3 uid="uid://ck140865xa2v5"]
+[gd_scene load_steps=40 format=3 uid="uid://bs5bewrt7rc81"]
 
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
 [ext_resource type="Script" path="res://level.gd" id="1_gfghv"]
-[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://scenes/player.tscn" id="14_jynqg"]
+[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://scenes/player.tscn" id="2_7e2xc"]
 [ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_08lh2"]
-[ext_resource type="PackedScene" uid="uid://c5wp7au6ye6xu" path="res://Toad.tscn" id="3_bse70"]
-
+[ext_resource type="PackedScene" uid="uid://ddkapc5aro1m3" path="res://scenes/Toad.tscn" id="3_bse70"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_idv4u"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_yecyg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_hfcmm"]
-[ext_resource type="Texture2D" uid="uid://dpiksp4ps2or5" path="res://import/textures/O5NY920.jpg" id="5_jcmwr"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="6_8xobo"]
-[ext_resource type="PackedScene" uid="uid://nac8j8aryaii" path="res://import/models/giant_low_poly_tree.glb" id="6_jnswg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="7_cjyeg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="8_y8xd7"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="9_5as5t"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="10_tlfns"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="11_6urh0"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/offset_rotation.gd" id="12_bp8jk"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="12_xjt1k"]
-
 [ext_resource type="PackedScene" uid="uid://bj2gjv51i0x1n" path="res://import/models/cabin.glb" id="14_jynqg"]
 [ext_resource type="PackedScene" uid="uid://bfkdco0mh48ed" path="res://import/models/campfire.glb" id="15_n3cvc"]
-[ext_resource type="PackedScene" uid="uid://coeht4oivneji" path="res://toad_note.tscn" id="15_n3cvc"]
-[ext_resource type="Script" path="res://script/toad_note.gd" id="18_xrgjh"]
-
+[ext_resource type="Script" path="res://script/toad_note.gd" id="18_djkef"]
+[ext_resource type="PackedScene" uid="uid://coeht4oivneji" path="res://toad_note.tscn" id="19_j8tdd"]
+[ext_resource type="PackedScene" uid="uid://c8bcpmlgrpjri" path="res://scenes/portal.tscn" id="20_75ac3"]
+[ext_resource type="Script" path="res://script/SubViewport_resizer.gd" id="21_hl7ow"]
+[ext_resource type="Script" path="res://script/portal.gd" id="21_pj2rt"]
+[ext_resource type="Texture2D" uid="uid://bld3jqj0006x" path="res://marterials/kuttoad.png" id="22_6cr51"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sn0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -33,12 +30,12 @@ sky_horizon_color = Color(0.164706, 0.0313726, 0.0470588, 1)
 ground_bottom_color = Color(0.0901961, 0.0235294, 0.00392157, 1)
 ground_horizon_color = Color(0.0196078, 0.00392157, 0, 1)
 
-[sub_resource type="Sky" id="Sky_lapkv"]
+[sub_resource type="Sky" id="Sky_xbi26"]
 sky_material = SubResource("ProceduralSkyMaterial_i5sn0")
 
 [sub_resource type="Environment" id="Environment_31drr"]
 background_mode = 2
-sky = SubResource("Sky_lapkv")
+sky = SubResource("Sky_xbi26")
 tonemap_mode = 3
 sdfgi_enabled = true
 glow_enabled = true
@@ -46,28 +43,19 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ky8h2"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_gg51c"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6lveo"]
-
-[sub_resource type="Resource" id="Resource_ufjty"]
-
+[sub_resource type="Resource" id="Resource_0vwmp"]
 script = ExtResource("5_hfcmm")
-amount = 1000
+amount = 7500
 enabled = true
 override_global_seed = false
 custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_1evbs"]
-
+[sub_resource type="Resource" id="Resource_7fj0q"]
 script = ExtResource("6_8xobo")
-position = Vector3(0, 0, 0)
-rotation = Vector3(0, 0, 0)
+position = Vector3(0.15, 0.15, 0.15)
+rotation = Vector3(5, 360, 10)
 scale = Vector3(0.1, 0.1, 0.1)
 enabled = true
 override_global_seed = false
@@ -75,8 +63,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_yf7vx"]
-
+[sub_resource type="Resource" id="Resource_h0nwx"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -88,9 +75,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-
-[sub_resource type="Resource" id="Resource_heofi"]
-
+[sub_resource type="Resource" id="Resource_1hjtr"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -106,40 +91,38 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_hshye"]
-script = ExtResource("12_bp8jk")
-operation = 0
-rotation = Vector3(-90, 0, 0)
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 2
-
-[sub_resource type="Resource" id="Resource_v0lkq"]
+[sub_resource type="Resource" id="Resource_tdv5w"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_ufjty"), SubResource("Resource_1evbs"), SubResource("Resource_yf7vx"), SubResource("Resource_heofi"), SubResource("Resource_hshye")])
-
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_0vwmp"), SubResource("Resource_7fj0q"), SubResource("Resource_h0nwx"), SubResource("Resource_1hjtr")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
-size = Vector3(312.999, 1.24394, 312.518)
+size = Vector3(299.987, 1.24394, 300.054)
 
 [sub_resource type="Resource" id="Resource_hw33t"]
 script = ExtResource("12_xjt1k")
-radius = 23.0937
+radius = 14.3482
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4nhr6"]
-albedo_texture = ExtResource("5_jcmwr")
-uv1_triplanar = true
+[sub_resource type="SphereShape3D" id="SphereShape3D_i3n3r"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7si5"]
-albedo_texture = ExtResource("5_jcmwr")
-uv1_triplanar = true
+[sub_resource type="BoxShape3D" id="BoxShape3D_qgw28"]
+size = Vector3(1, 1.18335, 1.0127)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8isqm"]
+viewport_path = NodePath("All_Posters_en_Portal/Portal/Sprite3D/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_x42ah"]
+font_size = 75
+font_color = Color(0.92549, 0.87451, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gekm"]
+albedo_texture = ExtResource("22_6cr51")
+
+[sub_resource type="QuadMesh" id="QuadMesh_0x7v7"]
 
 [node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points")]
 script = ExtResource("1_gfghv")
-player_scene = ExtResource("14_jynqg")
+player_scene = ExtResource("2_7e2xc")
 players_container = NodePath("Players/PlayersContainer")
 spawn_points = [NodePath("Players/Spawn points/SpawnPoint0"), NodePath("Players/Spawn points/SpawnPoint1"), NodePath("Players/Spawn points/SpawnPoint2"), NodePath("Players/Spawn points/SpawnPoint3"), NodePath("Players/Spawn points/SpawnPoint4"), NodePath("Players/Spawn points/SpawnPoint5")]
 toad_scene = ExtResource("3_bse70")
@@ -151,31 +134,36 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_31drr")
 
-[node name="Tree_Middle" parent="." instance=ExtResource("6_jnswg")]
+[node name="floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_fuq87")
+cast_shadow = 0
+use_collision = true
+size = Vector3(300, 1, 300)
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Tree_Middle"]
-physics_material_override = SubResource("PhysicsMaterial_ky8h2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Tree_Middle/RigidBody3D"]
-mesh = SubResource("ArrayMesh_gg51c")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tree_Middle/RigidBody3D"]
-shape = SubResource("ConvexPolygonShape3D_6lveo")
+[node name="Tree_middle" parent="." instance=ExtResource("2_08lh2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.0266018)
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-
-modifier_stack = SubResource("Resource_v0lkq")
-
+modifier_stack = SubResource("Resource_tdv5w")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
+[node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("9_5as5t")
+proportion = 50
+path = "res://addons/proton_scatter/demos/assets/bush.tscn"
+
+[node name="ScatterItem2" type="Node3D" parent="ProtonScatter"]
+script = ExtResource("9_5as5t")
+proportion = 20
+path = "res://addons/proton_scatter/demos/assets/small_rock.tscn"
+
 [node name="ScatterItem3" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("9_5as5t")
-proportion = 5
-source_scale_multiplier = 0.8
-path = "res://import/models/low_poly_tree.glb"
+source_scale_multiplier = 3.0
+path = "res://addons/proton_scatter/demos/assets/pine_tree.tscn"
 
 [node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
@@ -194,12 +182,11 @@ transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 71.682, 2.38419e-07, -7
 [node name="Campvuur" parent="." instance=ExtResource("15_n3cvc")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -68.8369, 0.464897, 21.0181)
 
-
 [node name="map" type="Node3D" parent="."]
 
 [node name="floor" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = SubResource("StandardMaterial3D_4nhr6")
+material_override = ExtResource("1_fuq87")
 use_collision = true
 size = Vector3(300, 1, 300)
 
@@ -207,25 +194,25 @@ size = Vector3(300, 1, 300)
 
 [node name="wall1" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 150, 0, 0)
-material_override = SubResource("StandardMaterial3D_t7si5")
+material_override = ExtResource("1_fuq87")
 use_collision = true
 size = Vector3(20, 1, 320)
 
 [node name="wall2" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -150, 0, 0)
-material_override = SubResource("StandardMaterial3D_t7si5")
+material_override = ExtResource("1_fuq87")
 use_collision = true
 size = Vector3(20, 1, 320)
 
 [node name="wall3" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(-2.18557e-08, -3.78552e-08, 1, -0.866025, 0.5, 0, -0.5, -0.866025, -4.37114e-08, 0, 0, 150)
-material_override = SubResource("StandardMaterial3D_t7si5")
+material_override = ExtResource("1_fuq87")
 use_collision = true
 size = Vector3(20, 1, 320)
 
 [node name="wall4" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(-2.18557e-08, -3.78552e-08, -1, -0.866025, 0.5, 0, 0.5, 0.866025, -4.37114e-08, 0, 0, -150)
-material_override = SubResource("StandardMaterial3D_t7si5")
+material_override = ExtResource("1_fuq87")
 use_collision = true
 size = Vector3(20, 1, 320)
 
@@ -254,20 +241,80 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.621971, -1.19209e-07, 2.93
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36073, 1.19209e-07, 1.95794)
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="Players"]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
 [node name="ToadSpawner" type="MultiplayerSpawner" parent="Players"]
 _spawnable_scenes = PackedStringArray("res://Toad.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
-[node name="Poster" type="Node3D" parent="."]
-transform = Transform3D(0.00981441, 0.314368, -0.949251, 0.033491, 0.94866, 0.314519, 0.999391, -0.0348782, -0.00121797, -1.17852, 0.57268, -2.53111)
-script = ExtResource("18_xrgjh")
+[node name="All_Posters_en_Portal" type="Node" parent="."]
 
-[node name="VisualNode" parent="Poster" instance=ExtResource("15_n3cvc")]
-transform = Transform3D(0.339804, -0.0046261, -0.00617201, -0.00595313, -0.028102, -0.524773, 0.00987987, 0.142175, -0.103926, 2.54799, 0.45196, 0.297472)
-script = null
+[node name="Poster" type="Node3D" parent="All_Posters_en_Portal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6938, 0.329688, 0.137126)
+script = ExtResource("18_djkef")
+
+[node name="VisualNode" parent="All_Posters_en_Portal/Poster" instance=ExtResource("19_j8tdd")]
+
+[node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Poster"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Poster/Area3D"]
+shape = SubResource("SphereShape3D_i3n3r")
+
+[node name="Poster2" type="Node3D" parent="All_Posters_en_Portal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6938, 0.329688, -5.17165)
+script = ExtResource("18_djkef")
+
+[node name="VisualNode" parent="All_Posters_en_Portal/Poster2" instance=ExtResource("19_j8tdd")]
+
+[node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Poster2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Poster2/Area3D"]
+shape = SubResource("SphereShape3D_i3n3r")
+
+[node name="Poster3" type="Node3D" parent="All_Posters_en_Portal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65427, 0.329688, -2.54373)
+script = ExtResource("18_djkef")
+
+[node name="VisualNode" parent="All_Posters_en_Portal/Poster3" instance=ExtResource("19_j8tdd")]
+
+[node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Poster3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Poster3/Area3D"]
+shape = SubResource("SphereShape3D_i3n3r")
+
+[node name="Portal" parent="All_Posters_en_Portal" instance=ExtResource("20_75ac3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.79863, 0.359536, -2.66484)
+script = ExtResource("21_pj2rt")
+
+[node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Portal"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Portal/Area3D"]
+shape = SubResource("BoxShape3D_qgw28")
+
+[node name="Sprite3D" type="Sprite3D" parent="All_Posters_en_Portal/Portal"]
+transform = Transform3D(0.000296671, 0, 1, 0, 1, 0, -1, 0, 0.000296671, 0.519203, 0, -0.441464)
+texture = SubResource("ViewportTexture_8isqm")
+
+[node name="SubViewport" type="SubViewport" parent="All_Posters_en_Portal/Portal/Sprite3D"]
+transparent_bg = true
+size = Vector2i(200, 100)
+script = ExtResource("21_hl7ow")
+
+[node name="Label" type="Label" parent="All_Posters_en_Portal/Portal/Sprite3D/SubViewport"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "99
+"
+label_settings = SubResource("LabelSettings_x42ah")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="All_Posters_en_Portal/Portal"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.500211, 0, -0.917619)
+material_override = SubResource("StandardMaterial3D_7gekm")
+mesh = SubResource("QuadMesh_0x7v7")
 
 [connection signal="spawned" from="Players/PlayerSpawner" to="." method="_on_player_spawner_spawned"]
 [connection signal="spawned" from="Players/ToadSpawner" to="." method="_on_toad_spawner_spawned"]
+[connection signal="body_entered" from="All_Posters_en_Portal/Poster/Area3D" to="All_Posters_en_Portal/Poster" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="All_Posters_en_Portal/Poster2/Area3D" to="All_Posters_en_Portal/Poster2" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="All_Posters_en_Portal/Poster3/Area3D" to="All_Posters_en_Portal/Poster3" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="All_Posters_en_Portal/Portal/Area3D" to="All_Posters_en_Portal/Portal" method="_on_area_3d_body_entered"]

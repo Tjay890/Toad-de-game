@@ -1,7 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://nssg58x4p3tw"]
+
+[gd_scene load_steps=11 format=3 uid="uid://nssg58x4p3tw"]
 
 [ext_resource type="Script" path="res://script/Player.gd" id="1_qxcmj"]
-[ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://pause_menu.tscn" id="2_blwle"]
+[ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://scenes/pause_menu.tscn" id="2_blwle"]
+[ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://scenes/Toad_sprinter.tscn" id="3_plxhh"]
+[ext_resource type="Script" path="res://scenes/UI_Manager.gd" id="4_iyygm"]
+[ext_resource type="Texture2D" uid="uid://bld3jqj0006x" path="res://marterials/kuttoad.png" id="4_n0ng0"]
 [ext_resource type="PackedScene" uid="uid://bknycpd23j5ud" path="res://import/models/Playerbody.glb" id="2_v7gn6"]
 
 [sub_resource type="Animation" id="Animation_cyj8r"]
@@ -971,11 +975,13 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kl54q"]
-radius = 0.332911
-height = 1.88937
+[sub_resource type="ImageTexture" id="ImageTexture_nglid"]
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="LabelSettings" id="LabelSettings_ax8ce"]
+font_size = 50
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_qxcmj")
 
@@ -1014,6 +1020,37 @@ replication_config = SubResource("SceneReplicationConfig_erark")
 
 [node name="pause_menu" parent="." instance=ExtResource("2_blwle")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0586549, 0)
-shape = SubResource("CapsuleShape3D_kl54q")
+
+[node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_plxhh")]
+script = ExtResource("4_iyygm")
+player = NodePath("..")
+
+[node name="sprint_slider" type="HSlider" parent="UI"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 625.0
+offset_right = 412.0
+offset_bottom = 646.0
+theme_override_icons/grabber = SubResource("ImageTexture_nglid")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="HBoxContainer_Poster" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 1035.0
+offset_top = 17.0
+offset_right = 1147.0
+offset_bottom = 86.0
+alignment = 2
+
+[node name="Label_Poster" type="Label" parent="UI/HBoxContainer_Poster"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_ax8ce")
+
+[node name="TextureRect" type="TextureRect" parent="UI/HBoxContainer_Poster"]
+layout_mode = 2
+texture = ExtResource("4_n0ng0")
+expand_mode = 2
+
