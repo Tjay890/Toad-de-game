@@ -1,12 +1,11 @@
+
 [gd_scene load_steps=5 format=3 uid="uid://dbbsvjqps3p6h"]
 
 [ext_resource type="Script" path="res://scenes/UI_Manager.gd" id="1_luwvy"]
 [ext_resource type="Texture2D" uid="uid://bld3jqj0006x" path="res://marterials/kuttoad.png" id="1_p8ekt"]
 
-[sub_resource type="ImageTexture" id="ImageTexture_2j3i5"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_hq16o"]
-font_size = 50
+[sub_resource type="ImageTexture" id="ImageTexture_2j3i5"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -19,33 +18,14 @@ offset_right = -651.0
 offset_bottom = -618.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_luwvy")
 
-[node name="sprint_slider3" type="HSlider" parent="."]
+[node name="sprint_slider" type="HSlider" parent="."]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 631.0
-offset_right = 413.0
-offset_bottom = 652.0
+offset_left = 3.0
+offset_top = 625.0
+offset_right = 412.0
+offset_bottom = 646.0
 theme_override_icons/grabber = SubResource("ImageTexture_2j3i5")
 max_value = 1.0
 step = 0.0
 value = 1.0
-
-[node name="HBoxContainer_Poster" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 1035.0
-offset_top = 17.0
-offset_right = 1147.0
-offset_bottom = 86.0
-alignment = 2
-
-[node name="Label_Poster" type="Label" parent="HBoxContainer_Poster"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_hq16o")
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer_Poster"]
-layout_mode = 2
-texture = ExtResource("1_p8ekt")
-expand_mode = 2

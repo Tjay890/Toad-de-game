@@ -3,20 +3,13 @@ extends CharacterBody3D
 #@onready var visual : Node3D = $MeshInstance3D
 
 var speed
+var sprint_slider
 var sprint_drain_amount = 0.7
 var sprint_refresh_amount = 0.1
 const WALK_SPEED = 3.0
 const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
-
-#posters
-var Poster: int:
-	set(new_value):
-		Poster = new_value
-		emit_signal("posterUpdated",Poster)
-
-signal posterUpdated(newValue)
 
 #bob variables
 const BOB_FREQ = 2.0
@@ -29,9 +22,6 @@ var gravity = 9.81
 @onready var nek = $nek2
 @onready var camera = $nek2/Camera3D
 @onready var pause_menu = $pause_menu
-
-
-@onready var sprint_slider = $UI/sprint_slider
 
 
 var owner_id = 1
@@ -50,7 +40,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	
-	#sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
+	sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
 
 	camera.current = true
 
@@ -87,7 +77,6 @@ func _physics_process(delta):
 		speed = SPRINT_SPEED
 	else :
 		speed = WALK_SPEED
-		
 	
 
 #func _process(delta):
@@ -150,6 +139,7 @@ func handle_animations(delta):
 
 func update_tree():
 	anim_tree["parameters/run/blend_amount"] = run_val
+
 
 func AddPoster(value:int):
 	Poster += value

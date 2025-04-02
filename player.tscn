@@ -1,8 +1,10 @@
 
+
 [gd_scene load_steps=15 format=3 uid="uid://nssg58x4p3tw"]
 
 [ext_resource type="Script" path="res://script/Player.gd" id="1_qxcmj"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://scenes/pause_menu.tscn" id="2_blwle"]
+
 [ext_resource type="PackedScene" uid="uid://bknycpd23j5ud" path="res://import/models/Playerbody.glb" id="2_v7gn6"]
 [ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://ui.tscn" id="3_plxhh"]
 
@@ -25,9 +27,11 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 
+
 [sub_resource type="ImageTexture" id="ImageTexture_nglid"]
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
+
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_qxcmj")
 
@@ -58,6 +62,7 @@ spot_angle_attenuation = 3.0
 replication_config = SubResource("SceneReplicationConfig_erark")
 
 [node name="pause_menu" parent="." instance=ExtResource("2_blwle")]
+
 
 
 [node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_plxhh")]

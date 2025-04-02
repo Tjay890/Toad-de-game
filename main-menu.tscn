@@ -1,8 +1,10 @@
+
 [gd_scene load_steps=28 format=3 uid="uid://s4s58o5l3bom"]
 
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_q5oip"]
 [ext_resource type="Script" path="res://script/main-menu.gd" id="1_yvdyv"]
 [ext_resource type="PackedScene" uid="uid://ck140865xa2v5" path="res://main_tije.tscn" id="2_hxc4h"]
+
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_fawvr"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_1pqgq"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_6n3fc"]
@@ -37,6 +39,7 @@ volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
 
+
 [sub_resource type="Resource" id="Resource_yu2t1"]
 
 script = ExtResource("5_6n3fc")
@@ -49,6 +52,7 @@ reference_frame = 1
 
 
 [sub_resource type="Resource" id="Resource_6kxon"]
+
 
 script = ExtResource("6_s86aq")
 position = Vector3(0, 0, 0)
@@ -94,6 +98,7 @@ restrict_height = false
 reference_frame = 0
 
 
+
 [sub_resource type="Resource" id="Resource_2yaxp"]
 
 script = ExtResource("12_krb1n")
@@ -105,9 +110,11 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
+
 [sub_resource type="Resource" id="Resource_6sba2"]
 script = ExtResource("4_1pqgq")
 stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_yu2t1"), SubResource("Resource_6kxon"), SubResource("Resource_b4sv6"), SubResource("Resource_ehexu"), SubResource("Resource_2yaxp")])
+
 
 
 [sub_resource type="Resource" id="Resource_nvefj"]
@@ -127,12 +134,16 @@ ip_line_edit = NodePath("Level_container/world/UI/StartVBox/IPLineEdit")
 host_vbox = NodePath("Level_container/world/UI/HostVBox")
 connected_players = NodePath("Level_container/world/UI/ConnectedPlayers")
 level_container = NodePath("Level_container")
+
 level_scene = ExtResource("2_hxc4h")
+
 toad_label = NodePath("Level_container/world/UI/ToadLabel")
 toad_vbox = NodePath("Level_container/world/UI/Toad")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+
 _spawnable_scenes = PackedStringArray("res://main.tscn")
+
 spawn_path = NodePath("../Level_container")
 
 [node name="Level_container" type="Node" parent="."]
@@ -160,7 +171,9 @@ size = Vector3(300, 1, 300)
 [node name="ProtonScatter" type="Node3D" parent="Level_container/world"]
 script = ExtResource("3_fawvr")
 
+
 modifier_stack = SubResource("Resource_6sba2")
+
 
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)

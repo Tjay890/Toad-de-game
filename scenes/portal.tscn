@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://c8bcpmlgrpjri"]
-
-[node name="Portal" type="Node3D"]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.101531, 0)
-use_collision = true
