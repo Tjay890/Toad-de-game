@@ -26,23 +26,15 @@ var t_bob = 0.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.81
 
-enum{IDLE,RUN}
-var curanim = IDLE
-
 @onready var nek = $nek2
 @onready var camera = $nek2/Camera3D
 @onready var pause_menu = $pause_menu
-@onready var playerbody = $Playerbody
-@onready var anim_tree = $Playerbody/AnimationTree
 
-@export var blend_speed = 15
 
 @onready var sprint_slider = $UI/sprint_slider
 
 
 var owner_id = 1
-var run_val = 0
-
 
 func _enter_tree():
 	owner_id = name.to_int()
@@ -52,13 +44,10 @@ func _enter_tree():
 
 
 
-
 func _ready():
 	if owner_id != multiplayer.get_unique_id():
 		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	playerbody.hide()
 
 	
 	#sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
@@ -86,8 +75,6 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	handle_animations(delta)
-	curanim = RUN
 
 	# Handle jump.
 	#if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -153,6 +140,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
 
+
 func handle_animations(delta):
 	match curanim:
 		IDLE:
@@ -166,4 +154,3 @@ func update_tree():
 func AddPoster(value:int):
 	Poster += value
 	print(Poster)
-
