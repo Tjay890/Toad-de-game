@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_fuq87"]
 [ext_resource type="Script" path="res://level.gd" id="1_gfghv"]
-[ext_resource type="PackedScene" uid="uid://crr02jxhkspgd" path="res://player.tscn" id="2_7e2xc"]
+[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://scenes/player.tscn" id="2_7e2xc"]
 [ext_resource type="PackedScene" uid="uid://b475ipwkwtixn" path="res://import/models/maple_tree.glb" id="2_08lh2"]
 [ext_resource type="PackedScene" uid="uid://c5wp7au6ye6xu" path="res://Toad.tscn" id="3_bse70"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_idv4u"]
