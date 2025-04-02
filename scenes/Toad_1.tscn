@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://ddkapc5aro1m3"]
 
-[ext_resource type="Script" path="res://script/Player_toad.gd" id="1_eplmw"]
-[ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://scenes/pause_menu.tscn" id="2_vlky7"]
-[ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://scenes/Toad_sprinter.tscn" id="3_7hafy"]
+[ext_resource type="Script" path="res://script/Player_toad.gd" id="1_iqsuq"]
+[ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://scenes/pause_menu.tscn" id="2_f6a4h"]
+[ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://ui.tscn" id="3_mxjet"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_41q6b"]
 albedo_color = Color(1, 0, 0, 1)
@@ -23,7 +23,7 @@ properties/1/replication_mode = 1
 [sub_resource type="ImageTexture" id="ImageTexture_5dk5a"]
 
 [node name="Toad" type="CharacterBody3D" node_paths=PackedStringArray("pause_menu", "sprint_slider")]
-script = ExtResource("1_eplmw")
+script = ExtResource("1_iqsuq")
 pause_menu = NodePath("PauseMenu")
 sprint_slider = NodePath("UI/sprint_slider")
 
@@ -53,9 +53,9 @@ spot_angle_attenuation = 3.0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vq1u0")
 
-[node name="PauseMenu" parent="." instance=ExtResource("2_vlky7")]
+[node name="PauseMenu" parent="." instance=ExtResource("2_f6a4h")]
 
-[node name="UI" parent="." instance=ExtResource("3_7hafy")]
+[node name="UI" parent="." instance=ExtResource("3_mxjet")]
 
 [node name="sprint_slider" type="HSlider" parent="UI"]
 layout_mode = 0

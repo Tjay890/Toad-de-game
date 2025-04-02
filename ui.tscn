@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdfm8kebittek"]
+[gd_scene load_steps=5 format=3 uid="uid://dbbsvjqps3p6h"]
 
 [ext_resource type="Script" path="res://scenes/UI_Manager.gd" id="1_luwvy"]
 [ext_resource type="Texture2D" uid="uid://bld3jqj0006x" path="res://marterials/kuttoad.png" id="1_p8ekt"]
