@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+
 #@onready var visual : Node3D = $MeshInstance3D
 
 var speed
@@ -13,18 +14,18 @@ var health = 2
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
 var t_bob = 0.0
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.81
 
-@onready var nek = $nek2
-@onready var camera = $nek2/Camera3D
+@onready var nek = $Nek
+@onready var camera = $Nek/Camera3D
 @onready var pause_menu = $pause_menu
 @export var hartje1 : TextureRect
 @export var hartje2 : TextureRect
 @export var health_ui : Control
-
+@export var player : CharacterBody3D
 var owner_id = 1
+@onready var death_screen = $Health/Death_screen
 
 func _enter_tree():
 	owner_id = name.to_int()
@@ -57,6 +58,8 @@ func _physics_process(delta):
 	if multiplayer.multiplayer_peer == null:
 		return
 	if owner_id != multiplayer.get_unique_id():
+		return
+	if health <= 0:
 		return
 	# Add the gravity.
 	if not is_on_floor():
@@ -110,6 +113,8 @@ func _input(event: InputEvent) -> void:
 		return
 	if owner_id != multiplayer.get_unique_id():
 		return
+	if health <= 0:
+		return
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
 
@@ -123,16 +128,28 @@ func healthdepleted():
 	health -= 1
 	if health == 1:
 		hartje2.hide()
-	if health < 0:
+	if health <= 0:
 		death()
 
 func death():
-	health_ui.hide()
+	hartje2.hide()
+	player.hide()
+	if multiplayer.get_unique_id() == owner_id:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		death_screen.show()
+		
 	
 
-
-
+@rpc ("call_local","any_peer", "reliable")
+func remove_player():
+	queue_free()
 
 func _on_area_3d_body_part_hit(dam):
 	print("signal werkt")
 	healthdepleted()
+
+
+func _on_quit_button_pressed():
+	get_tree().quit
+	SignalManager.on_player_dead.emit()
+	remove_player.rpc_id(1)

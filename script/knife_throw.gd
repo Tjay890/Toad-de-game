@@ -6,16 +6,16 @@ const SPEED = 5.0
 @onready var ray = $RayCast3D
 var dropped = false
 func _ready():
-	pass
+	print(multiplayer.is_server())
 
 func _process(delta):
 	if dropped == true:
 		if ray.is_colliding():
-			print("test for pickup")
 			if ray.get_collider().is_in_group("toad"):
 				print("collected")
 				ray.get_collider().picked_up()
-				remove.rpc()
+				remove.rpc_id(1)
+				
 		return
 	position += transform.basis * Vector3(0,0,-SPEED)* delta
 	if ray.is_colliding() and not(ray.get_collider().is_in_group("toad")):
@@ -45,4 +45,5 @@ func drop():
 func remove():
 	if not multiplayer.is_server():
 		return
+	print("quefree")
 	queue_free()

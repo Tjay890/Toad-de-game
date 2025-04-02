@@ -4,10 +4,14 @@ extends Node3D
 @export var players_container: Node3D
 @export var spawn_points: Array[Node3D]
 @export var toad_scene: PackedScene
-
+@export var spectator_ui: Control
+var players = []
+var spectator_index = 0
 var next_spawn_point_index = 0
+@onready var camera = $Players/Dood_camera
 
 func _ready():
+	SignalManager.on_player_dead.connect(_on_dead)
 	if not multiplayer.is_server():
 		return
 	
@@ -63,3 +67,19 @@ func _on_player_spawner_spawned(node):
 
 func _on_toad_spawner_spawned(node):
 	node.position = get_spawn_point()
+
+func _on_dead():
+	players = players_container.get_children()
+	spectator_ui.show()
+
+func _on_button_pressed():
+	players = players_container.get_children()
+	if spectator_index >= len(players):
+		spectator_index = 0
+		camera = $Players/Dood_camera
+		camera.current = true
+	else:
+		camera = players[spectator_index].get_node("Nek/Camera3D")
+		camera.current = true
+		spectator_index += 1
+	

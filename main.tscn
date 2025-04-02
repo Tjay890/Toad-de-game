@@ -37,7 +37,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_ru4t2"]
+[sub_resource type="Resource" id="Resource_it7wq"]
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -46,7 +46,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_fmrkh"]
+[sub_resource type="Resource" id="Resource_jdr84"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -57,7 +57,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_kffj5"]
+[sub_resource type="Resource" id="Resource_fsaui"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -69,7 +69,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_4y2hb"]
+[sub_resource type="Resource" id="Resource_hhg7d"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -85,9 +85,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_ny3wn"]
+[sub_resource type="Resource" id="Resource_rkxtj"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_ru4t2"), SubResource("Resource_fmrkh"), SubResource("Resource_kffj5"), SubResource("Resource_4y2hb")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_it7wq"), SubResource("Resource_jdr84"), SubResource("Resource_fsaui"), SubResource("Resource_hhg7d")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -97,12 +97,13 @@ size = Vector3(299.987, 1.24394, 300.054)
 script = ExtResource("12_xjt1k")
 radius = 14.3482
 
-[node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points")]
+[node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points", "spectator_ui")]
 script = ExtResource("1_ocbul")
 player_scene = ExtResource("2_7e2xc")
 players_container = NodePath("Players/PlayersContainer")
 spawn_points = [NodePath("Players/Spawn points/SpawnPoint0"), NodePath("Players/Spawn points/SpawnPoint1"), NodePath("Players/Spawn points/SpawnPoint2"), NodePath("Players/Spawn points/SpawnPoint3"), NodePath("Players/Spawn points/SpawnPoint4"), NodePath("Players/Spawn points/SpawnPoint5")]
 toad_scene = ExtResource("3_bse70")
+spectator_ui = NodePath("Control")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -130,7 +131,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-modifier_stack = SubResource("Resource_ny3wn")
+modifier_stack = SubResource("Resource_rkxtj")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -202,6 +203,9 @@ size = Vector3(20, 1, 320)
 
 [node name="Players" type="Node" parent="."]
 
+[node name="Dood_camera" type="Camera3D" parent="Players"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8.31725, 0)
+
 [node name="PlayersContainer" type="Node3D" parent="Players"]
 
 [node name="Spawn points" type="Node" parent="Players"]
@@ -236,5 +240,23 @@ spawn_path = NodePath("../PlayersContainer")
 _spawnable_scenes = PackedStringArray("res://knife_throw.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Next player
+"
+
 [connection signal="spawned" from="Players/PlayerSpawner" to="." method="_on_player_spawner_spawned"]
 [connection signal="spawned" from="Players/ToadSpawner" to="." method="_on_toad_spawner_spawned"]
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
