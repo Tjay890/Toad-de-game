@@ -263,7 +263,7 @@ spot_angle_attenuation = 3.0
 [node name="WeaponPivot" type="Node3D" parent="Nek/Camera3D"]
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="Nek/Camera3D/WeaponPivot"]
-transform = Transform3D(0.0997874, -0.0649283, -0.0005679, 0.000626447, 0.00881725, 0.0999942, -0.00648745, -0.99785, 0.000920525, 0.416745, 0.227517, -0.367752)
+transform = Transform3D(0.0997874, -0.0649283, -0.0005679, 0.000626447, 0.00881725, 0.0999942, -0.00648745, -0.99785, 0.000920526, 0.416745, 0.227517, -0.367752)
 mesh = SubResource("BoxMesh_2qkgi")
 
 [node name="Mes" type="Area3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh"]

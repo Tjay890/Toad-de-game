@@ -39,7 +39,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_f731a"]
+[sub_resource type="Resource" id="Resource_n2hlg"]
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -48,7 +48,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_casd6"]
+[sub_resource type="Resource" id="Resource_dg25n"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_wnhff"]
+[sub_resource type="Resource" id="Resource_wmdd5"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -71,7 +71,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_sclvt"]
+[sub_resource type="Resource" id="Resource_06k7i"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -87,9 +87,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_t3xxh"]
+[sub_resource type="Resource" id="Resource_vri7f"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_f731a"), SubResource("Resource_casd6"), SubResource("Resource_wnhff"), SubResource("Resource_sclvt")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_n2hlg"), SubResource("Resource_dg25n"), SubResource("Resource_wmdd5"), SubResource("Resource_06k7i")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -143,7 +143,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-modifier_stack = SubResource("Resource_t3xxh")
+modifier_stack = SubResource("Resource_vri7f")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
