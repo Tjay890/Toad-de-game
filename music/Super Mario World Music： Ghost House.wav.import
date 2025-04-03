@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ctjlrssglxwto"
+path="res://.godot/imported/Super Mario World Music： Ghost House.wav-f9c58b312865c27b9259ba375c565d76.sample"
+
+[deps]
+
+source_file="res://music/Super Mario World Music： Ghost House.wav"
+dest_files=["res://.godot/imported/Super Mario World Music： Ghost House.wav-f9c58b312865c27b9259ba375c565d76.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -19,6 +19,10 @@ func _ready():
 func _on_start_button_pressed():
 	hide_menu.rpc()
 	change_level.call_deferred(level_scene)
+	$Start_sound.play()
+	$"Lets a go".play()
+
+
 
 
 func change_level(scene):

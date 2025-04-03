@@ -12,5 +12,3 @@ func _ready():
 
 func UpdatePosterLabel(newValue:int):
 	posterLabel.text = str(newValue)
-
-

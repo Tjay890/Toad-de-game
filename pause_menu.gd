@@ -8,6 +8,7 @@ func _ready() -> void:
 	play_button.pressed.connect(unpause)
 	quit_button.pressed.connect(get_tree().quit)
 	self.visible = false
+	
 
 func unpause():
 	animator.play("unpause")
@@ -17,6 +18,7 @@ func unpause():
 	
 func pause():
 	animator.play("pause")
+	$Pause.play()
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	self.visible = true

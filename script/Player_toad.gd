@@ -18,6 +18,8 @@ var gravity = 9.81
 @export var pause_menu : ColorRect
 @onready var nek = $Nek
 @onready var camera = $Nek/Camera3D
+@onready var ui = $"."
+@onready var toad_body = $Toad_body
 
 var owner_id = 1
 
@@ -32,6 +34,9 @@ func _ready():
 		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
+	
+	ui.hide()
+	toad_body.hide()
 
 
 func _unhandled_input(event):

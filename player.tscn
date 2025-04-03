@@ -1,8 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://nssg58x4p3tw"]
+[gd_scene load_steps=17 format=3 uid="uid://nssg58x4p3tw"]
 
 [ext_resource type="Script" path="res://script/Player.gd" id="1_qxcmj"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://pause_menu.tscn" id="2_blwle"]
 [ext_resource type="PackedScene" uid="uid://bknycpd23j5ud" path="res://import/models/Playerbody.glb" id="2_v7gn6"]
+[ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://ui.tscn" id="4_brgk4"]
+[ext_resource type="Script" path="res://scenes/UI_Manager.gd" id="5_4hgbb"]
+[ext_resource type="AudioStream" uid="uid://mfm8im8xxmou" path="res://music/sm64_coin.wav" id="6_vafo0"]
 
 [sub_resource type="Animation" id="Animation_cyj8r"]
 resource_name = "Idle"
@@ -975,7 +978,9 @@ properties/1/replication_mode = 1
 radius = 0.332911
 height = 1.88937
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="ImageTexture" id="ImageTexture_oomh0"]
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_qxcmj")
 
@@ -1017,3 +1022,21 @@ replication_config = SubResource("SceneReplicationConfig_erark")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0586549, 0)
 shape = SubResource("CapsuleShape3D_kl54q")
+
+[node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_brgk4")]
+script = ExtResource("5_4hgbb")
+player = NodePath("..")
+
+[node name="sprint_slider" type="HSlider" parent="UI"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 625.0
+offset_right = 412.0
+offset_bottom = 646.0
+theme_override_icons/grabber = SubResource("ImageTexture_oomh0")
+max_value = 1.0
+step = 0.0
+value = 1.0
+
+[node name="Pick_up" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vafo0")

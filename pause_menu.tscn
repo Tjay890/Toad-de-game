@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq433csy5cv10"]
+[gd_scene load_steps=9 format=3 uid="uid://bq433csy5cv10"]
 
 [ext_resource type="Shader" path="res://menu_blur.gdshader" id="1_lfri0"]
 [ext_resource type="Script" path="res://pause_menu.gd" id="2_aufeh"]
+[ext_resource type="AudioStream" uid="uid://b4v3vkfugcikt" path="res://music/sm64_pause.wav" id="3_4tad5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_00r5n"]
 shader = ExtResource("1_lfri0")
@@ -9,46 +10,6 @@ shader_parameter/menu_blur = 0.0
 shader_parameter/brightness = 1.0
 
 [sub_resource type="Animation" id="Animation_fnvnc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/menu_blur")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/brightness")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CenterContainer:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_spfop"]
-resource_name = "unpause"
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -127,6 +88,46 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_spfop"]
+resource_name = "unpause"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/menu_blur")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i1oe4"]
 _data = {
 "RESET": SubResource("Animation_fnvnc"),
@@ -189,3 +190,7 @@ libraries = {
 "": SubResource("AnimationLibrary_i1oe4")
 }
 autoplay = "unpause"
+
+[node name="Pause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4tad5")
+autoplay = true

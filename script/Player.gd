@@ -2,8 +2,7 @@ extends CharacterBody3D
 
 #@onready var visual : Node3D = $MeshInstance3D
 
-var speed
-var sprint_slider
+var speed = 0
 var sprint_drain_amount = 0.7
 var sprint_refresh_amount = 0.1
 const WALK_SPEED = 3.0
@@ -27,17 +26,26 @@ var curanim = IDLE
 @onready var pause_menu = $pause_menu
 @onready var playerbody = $Playerbody
 @onready var anim_tree = $Playerbody/AnimationTree
+@onready var sprint_slider = $UI/sprint_slider
+@onready var pick_up = $Pick_up
 
 @export var blend_speed = 15
 
 var owner_id = 1
 var run_val = 0
 
+var Poster: int:
+	set(new_value):
+		Poster = new_value
+		emit_signal("posterUpdated",Poster)
+
+signal posterUpdated(newValue)
 
 func _enter_tree():
 	owner_id = name.to_int()
 	print(owner_id)
 	set_multiplayer_authority(owner_id)
+	
 
 
 
@@ -51,7 +59,7 @@ func _ready():
 	playerbody.hide()
 
 	
-	sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
+	#sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
 
 	camera.current = true
 
@@ -76,8 +84,8 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	handle_animations(delta)
-	curanim = RUN
+	#handle_animations(delta)
+	#curanim = RUN
 
 	# Handle jump.
 	#if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -92,16 +100,16 @@ func _physics_process(delta):
 		speed = WALK_SPEED
 	
 
-#func _process(delta):
-	#if speed == SPRINT_SPEED:
-		#sprint_slider.value = sprint_slider.value - sprint_drain_amount * delta
-		#if sprint_slider.value == sprint_slider.min_value:
-		#	speed = WALK_SPEED
-	#if speed != SPRINT_SPEED:
-		#if sprint_slider.value < sprint_slider.max_value:
-		#	sprint_slider.value = sprint_slider.value + sprint_refresh_amount * delta
-		#if sprint_slider.value == sprint_slider.max_value:
-		#	sprint_slider.visible = false
+func _process(delta):
+	if speed == SPRINT_SPEED:
+		sprint_slider.value = sprint_slider.value - sprint_drain_amount * delta
+		if sprint_slider.value == sprint_slider.min_value:
+			speed = WALK_SPEED
+	if speed != SPRINT_SPEED:
+		if sprint_slider.value < sprint_slider.max_value:
+			sprint_slider.value = sprint_slider.value + sprint_refresh_amount * delta
+		if sprint_slider.value == sprint_slider.max_value:
+			sprint_slider.visible = false
 
 
 
@@ -127,7 +135,6 @@ func _physics_process(delta):
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
 
-
 	move_and_slide()
 
 
@@ -143,12 +150,17 @@ func _input(event: InputEvent) -> void:
 		pause_menu.pause()
 
 
-func handle_animations(delta):
-	match curanim:
-		IDLE:
-			run_val = lerpf(run_val,0,blend_speed*delta)
-		RUN:
-			run_val = lerpf(run_val,1,blend_speed*delta)
+#func handle_animations(delta):
+	#match curanim:
+		#IDLE:
+			#run_val = lerpf(run_val,0,blend_speed*delta)
+		#RUN:
+			#run_val = lerpf(run_val,1,blend_speed*delta)
 
-func update_tree():
-	anim_tree["parameters/run/blend_amount"] = run_val
+#func update_tree():
+	#anim_tree["parameters/run/blend_amount"] = run_val
+
+func AddPoster(value:int):
+	Poster += value
+	print(Poster)
+	pick_up.play()
