@@ -36,6 +36,7 @@ func _enter_tree():
 func _ready():
 	if owner_id != multiplayer.get_unique_id():
 		return
+	print(Lobby.player_list, owner_id)
 	health_ui.show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
@@ -133,7 +134,7 @@ func death():
 	hartje1.hide()
 	player.hide()
 	print("test voor player dead rpc")
-	player_died.rpc()
+	player_died.rpc_id(1)
 	
 	if multiplayer.get_unique_id() == owner_id:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

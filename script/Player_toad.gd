@@ -37,6 +37,7 @@ func _ready():
 		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
+	print(Lobby.player_list, owner_id)
 
 
 func _unhandled_input(event):
