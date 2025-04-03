@@ -22,12 +22,13 @@ properties/2/path = NodePath("Health:clip_contents")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hartje1", "hartje2", "health_ui")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hartje1", "hartje2", "health_ui", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_qxcmj")
 hartje1 = NodePath("Health/Hartje1")
 hartje2 = NodePath("Health/Hartje2")
 health_ui = NodePath("Health")
+player = NodePath(".")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_b4l4k")
@@ -35,22 +36,14 @@ mesh = SubResource("CapsuleMesh_b4l4k")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_0urwe")
 
-[node name="Area3D" type="Area3D" parent="." groups=["players"]]
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("2_7xwqn")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("ConvexPolygonShape3D_0urwe")
-
-[node name="nek2" type="Node3D" parent="."]
+[node name="Nek" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67235, -0.283352)
 
-[node name="Camera3D" type="Camera3D" parent="nek2"]
+[node name="Camera3D" type="Camera3D" parent="Nek"]
 
-[node name="Spotlight" type="Node3D" parent="nek2/Camera3D"]
+[node name="Spotlight" type="Node3D" parent="Nek/Camera3D"]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="nek2/Camera3D/Spotlight"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Nek/Camera3D/Spotlight"]
 light_color = Color(1, 0.94902, 0.886275, 1)
 light_energy = 4.0
 light_volumetric_fog_energy = 0.1
@@ -61,13 +54,25 @@ spot_angle_attenuation = 3.0
 replication_config = SubResource("SceneReplicationConfig_erark")
 
 [node name="pause_menu" parent="." instance=ExtResource("2_blwle")]
+mouse_filter = 1
+
+[node name="Area3D" type="Area3D" parent="." groups=["players"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("2_7xwqn")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConvexPolygonShape3D_0urwe")
 
 [node name="Health" type="Control" parent="."]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
 [node name="Hartje1" type="TextureRect" parent="Health"]
 layout_mode = 0

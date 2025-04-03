@@ -54,6 +54,7 @@ func _register_player(new_player_info):
 func _on_player_disconnected(id):
 	players.erase(id)
 	player_disconnected.emit(id)
+
 	
 func _on_connected_to_server():
 	peer_id = multiplayer.get_unique_id()

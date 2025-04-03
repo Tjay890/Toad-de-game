@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+
 #@onready var visual : Node3D = $MeshInstance3D
 
 var speed
@@ -8,22 +9,20 @@ const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
 var health = 2
-
 #bob variables
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
 var t_bob = 0.0
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.81
 
-@onready var nek = $nek2
-@onready var camera = $nek2/Camera3D
+@onready var nek = $Nek
+@onready var camera = $Nek/Camera3D
 @onready var pause_menu = $pause_menu
 @export var hartje1 : TextureRect
 @export var hartje2 : TextureRect
 @export var health_ui : Control
-
+@export var player : CharacterBody3D
 var owner_id = 1
 
 func _enter_tree():
@@ -37,6 +36,7 @@ func _enter_tree():
 func _ready():
 	if owner_id != multiplayer.get_unique_id():
 		return
+	print(Lobby.player_list, owner_id)
 	health_ui.show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
@@ -57,6 +57,8 @@ func _physics_process(delta):
 	if multiplayer.multiplayer_peer == null:
 		return
 	if owner_id != multiplayer.get_unique_id():
+		return
+	if health <= 0:
 		return
 	# Add the gravity.
 	if not is_on_floor():
@@ -110,6 +112,8 @@ func _input(event: InputEvent) -> void:
 		return
 	if owner_id != multiplayer.get_unique_id():
 		return
+	if health <= 0:
+		return
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
 
@@ -123,16 +127,32 @@ func healthdepleted():
 	health -= 1
 	if health == 1:
 		hartje2.hide()
-	if health < 0:
+	if health <= 0:
 		death()
 
 func death():
-	health_ui.hide()
+	hartje1.hide()
+	player.hide()
+	print("test voor player dead rpc")
+	player_died.rpc_id(1)
+	
+	if multiplayer.get_unique_id() == owner_id:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		SignalManager.spectator.emit(owner_id)
+		
 	
 
+@rpc ("call_local","any_peer", "reliable")
+func player_died():
+	print("Player dead signal")
+	SignalManager.player_dead.emit()
 
-
+@rpc ("call_local","any_peer", "reliable")
+func remove_player():
+	queue_free()
 
 func _on_area_3d_body_part_hit(dam):
 	print("signal werkt")
 	healthdepleted()
+
+

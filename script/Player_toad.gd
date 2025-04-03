@@ -37,6 +37,7 @@ func _ready():
 		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
+	print(Lobby.player_list, owner_id)
 
 
 func _unhandled_input(event):
@@ -119,9 +120,9 @@ func _process(delta):
 		if owner_id != multiplayer.get_unique_id():
 			return
 		if Input.is_action_just_pressed("attack") and (Input.is_action_pressed("charge") and cd > 0):
-			shoot()
+			shoot.rpc()
 			cd = 0
-			animation.play("Idle")
+			animation.play("Throw")
 		elif Input.is_action_just_pressed("attack"):
 			hitbox.set_collision_layer_value(3, true)
 			hitbox.set_collision_mask_value(2, true)
@@ -144,6 +145,11 @@ func _on_animation_player_animation_finished(anim_name):
 		hitbox.monitoring = false
 		hitbox.set_collision_layer_value(3, false)
 		hitbox.set_collision_mask_value(2, false)
+	if anim_name == "Throw":
+		mes_mesh.hide()
+		animation.play("Idle")
+		
+		
 		
 
 
@@ -153,14 +159,18 @@ func _on_hitbox_area_entered(area):
 		print("hit")
 		area.hit.rpc()
 		
-
+@rpc ("any_peer", "call_local", "reliable")
 func shoot():
+	if multiplayer.multiplayer_peer == null:
+			return
+
+	if multiplayer.is_server():
+		var new_knife = spawned_knife.instantiate()
+		new_knife.position = spawn_point.global_position
+		new_knife.transform.basis = spawn_point.global_transform.basis
+		get_parent().add_child(new_knife, true)
 	pickedup = false
-	mes_mesh.hide()
-	var new_knife = spawned_knife.instantiate()
-	new_knife.position = spawn_point.global_position
-	new_knife.transform.basis = spawn_point.global_transform.basis
-	get_parent().add_child(new_knife, true)
+	
 	
 
 
