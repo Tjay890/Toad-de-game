@@ -3,16 +3,17 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://br3t6pdextscs"
-path="res://.godot/imported/toad_0.png-d12ed023e1cf39725f419c37d57d34eb.ctex"
+path.s3tc="res://.godot/imported/toad_0.png-d12ed023e1cf39725f419c37d57d34eb.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={}
 
 [deps]
 
 source_file="res://import/models/toad_0.png"
-dest_files=["res://.godot/imported/toad_0.png-d12ed023e1cf39725f419c37d57d34eb.ctex"]
+dest_files=["res://.godot/imported/toad_0.png-d12ed023e1cf39725f419c37d57d34eb.s3tc.ctex"]
 
 [params]
 

@@ -39,7 +39,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_fn80g"]
+[sub_resource type="Resource" id="Resource_riw4e"]
 script = ExtResource("5_6n3fc")
 amount = 2000
 enabled = true
@@ -48,7 +48,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_5tfnv"]
+[sub_resource type="Resource" id="Resource_3h1ya"]
 script = ExtResource("6_s86aq")
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_246lx"]
+[sub_resource type="Resource" id="Resource_lt0su"]
 script = ExtResource("7_w2cab")
 iterations = 3
 offset_step = 0.2
@@ -71,7 +71,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_gy8ii"]
+[sub_resource type="Resource" id="Resource_vny18"]
 script = ExtResource("8_yax8a")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -87,7 +87,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_kpiut"]
+[sub_resource type="Resource" id="Resource_gxg7g"]
 script = ExtResource("12_krb1n")
 operation = 0
 rotation = Vector3(-90, 0, 0)
@@ -97,9 +97,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_tu63t"]
+[sub_resource type="Resource" id="Resource_fllda"]
 script = ExtResource("4_1pqgq")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_fn80g"), SubResource("Resource_5tfnv"), SubResource("Resource_246lx"), SubResource("Resource_gy8ii"), SubResource("Resource_kpiut")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_riw4e"), SubResource("Resource_3h1ya"), SubResource("Resource_lt0su"), SubResource("Resource_vny18"), SubResource("Resource_gxg7g")])
 
 [sub_resource type="Resource" id="Resource_nvefj"]
 script = ExtResource("11_aua1i")
@@ -150,7 +150,7 @@ size = Vector3(300, 1, 300)
 
 [node name="ProtonScatter" type="Node3D" parent="Level_container/world"]
 script = ExtResource("3_fawvr")
-modifier_stack = SubResource("Resource_tu63t")
+modifier_stack = SubResource("Resource_fllda")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
