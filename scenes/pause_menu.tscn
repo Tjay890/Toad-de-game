@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bq433csy5cv10"]
 
 [ext_resource type="Shader" path="res://menu_blur.gdshader" id="1_lfri0"]
-[ext_resource type="Script" path="res://pause_menu.gd" id="2_aufeh"]
+[ext_resource type="Script" path="res://script/pause_menu.gd" id="2_aufeh"]
 [ext_resource type="AudioStream" uid="uid://b4v3vkfugcikt" path="res://music/sm64_pause.wav" id="3_4tad5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_00r5n"]

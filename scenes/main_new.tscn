@@ -1,8 +1,8 @@
 [gd_scene load_steps=47 format=3 uid="uid://bs5bewrt7rc81"]
 
-[ext_resource type="Script" path="res://level.gd" id="1_gfghv"]
-[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://player.tscn" id="2_7e2xc"]
-[ext_resource type="PackedScene" uid="uid://ddkapc5aro1m3" path="res://Toad.tscn" id="3_bse70"]
+[ext_resource type="Script" path="res://script/level.gd" id="1_fau61"]
+[ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://scenes/player.tscn" id="2_7e2xc"]
+[ext_resource type="PackedScene" uid="uid://ddkapc5aro1m3" path="res://scenes/Toad.tscn" id="3_bse70"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_idv4u"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_yecyg"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_hfcmm"]
@@ -16,10 +16,10 @@
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="11_6urh0"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/offset_rotation.gd" id="12_bp8jk"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/sphere_shape.gd" id="12_xjt1k"]
-[ext_resource type="PackedScene" uid="uid://o0u5245tvq5b" path="res://toad note.tscn" id="17_2b4uh"]
+[ext_resource type="PackedScene" uid="uid://o0u5245tvq5b" path="res://scenes/toad note.tscn" id="17_2b4uh"]
 [ext_resource type="Script" path="res://script/toad_note.gd" id="19_f17wc"]
-[ext_resource type="PackedScene" uid="uid://gxpqwqxqaj5p" path="res://toad_note.tscn" id="20_primm"]
-[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="21_rl5s8"]
+[ext_resource type="PackedScene" uid="uid://gxpqwqxqaj5p" path="res://scenes/toad_note.tscn" id="20_primm"]
+[ext_resource type="PackedScene" uid="uid://c8bcpmlgrpjri" path="res://scenes/portal.tscn" id="21_rl5s8"]
 [ext_resource type="Script" path="res://script/portal.gd" id="22_jlgyb"]
 [ext_resource type="Script" path="res://script/SubViewport_resizer.gd" id="23_2t7am"]
 [ext_resource type="AudioStream" uid="uid://ctjlrssglxwto" path="res://music/Super Mario World Music： Ghost House.wav" id="24_1p3fi"]
@@ -50,7 +50,7 @@ volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6lveo"]
 
-[sub_resource type="Resource" id="Resource_gkova"]
+[sub_resource type="Resource" id="Resource_pfevq"]
 script = ExtResource("5_hfcmm")
 amount = 1000
 enabled = true
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_5x8sx"]
+[sub_resource type="Resource" id="Resource_e3mde"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(3, 360, 3)
@@ -70,7 +70,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_ukw45"]
+[sub_resource type="Resource" id="Resource_ijhsl"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -82,7 +82,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_0j0hv"]
+[sub_resource type="Resource" id="Resource_x6wn4"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -98,7 +98,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_5bi03"]
+[sub_resource type="Resource" id="Resource_mncm2"]
 script = ExtResource("12_bp8jk")
 operation = 0
 rotation = Vector3(-90, 0, 0)
@@ -108,9 +108,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_7b08t"]
+[sub_resource type="Resource" id="Resource_7vl87"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_gkova"), SubResource("Resource_5x8sx"), SubResource("Resource_ukw45"), SubResource("Resource_0j0hv"), SubResource("Resource_5bi03")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_pfevq"), SubResource("Resource_e3mde"), SubResource("Resource_ijhsl"), SubResource("Resource_x6wn4"), SubResource("Resource_mncm2")])
 
 [sub_resource type="Resource" id="Resource_n2ovd"]
 script = ExtResource("11_6urh0")
@@ -146,7 +146,7 @@ albedo_texture = ExtResource("24_70klj")
 [sub_resource type="QuadMesh" id="QuadMesh_uk120"]
 
 [node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points")]
-script = ExtResource("1_gfghv")
+script = ExtResource("1_fau61")
 player_scene = ExtResource("2_7e2xc")
 players_container = NodePath("Players/PlayersContainer")
 spawn_points = [NodePath("Players/Spawn points/SpawnPoint0"), NodePath("Players/Spawn points/SpawnPoint1"), NodePath("Players/Spawn points/SpawnPoint2"), NodePath("Players/Spawn points/SpawnPoint3"), NodePath("Players/Spawn points/SpawnPoint4"), NodePath("Players/Spawn points/SpawnPoint5")]
@@ -154,7 +154,6 @@ toad_scene = ExtResource("3_bse70")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -175,13 +174,13 @@ shape = SubResource("ConvexPolygonShape3D_6lveo")
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
 keep_static_colliders = true
-modifier_stack = SubResource("Resource_7b08t")
+modifier_stack = SubResource("Resource_7vl87")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
 [node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("9_5as5t")
-path = "res://bomen.tscn"
+path = "res://scenes/bomen.tscn"
 
 [node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
@@ -255,11 +254,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.621971, -1.19209e-07, 2.93
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36073, 1.19209e-07, 1.95794)
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="Players"]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
 [node name="ToadSpawner" type="MultiplayerSpawner" parent="Players"]
-_spawnable_scenes = PackedStringArray("res://Toad.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/Toad.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
 [node name="All_Posters_en_Portal" type="Node" parent="."]

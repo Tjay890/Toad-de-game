@@ -7,7 +7,7 @@ const WALK_SPEED = 3.0
 const SPRINT_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
-
+var pickedup = true
 #bob variables
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
@@ -18,7 +18,12 @@ var gravity = 9.81
 @export var pause_menu : ColorRect
 @onready var nek = $Nek
 @onready var camera = $Nek/Camera3D
-@onready var ui = $"."
+@export var animation : AnimationPlayer
+@export var hitbox : Area3D
+@export var collisionshape: CollisionShape3D
+@export var spawned_knife: PackedScene
+@export var spawn_point: RayCast3D
+@export var mes_mesh: MeshInstance3D
 @onready var toad_body = $Toad_body
 
 var owner_id = 1
@@ -34,8 +39,6 @@ func _ready():
 		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
-	
-	ui.hide()
 	toad_body.hide()
 
 
@@ -105,3 +108,67 @@ func _headbob(time) -> Vector3:
 func _input(event: InputEvent) -> void: 
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.pause()
+
+func _process(delta):
+	if pickedup == true:
+		if multiplayer.multiplayer_peer == null:
+			return
+		if owner_id != multiplayer.get_unique_id():
+			return
+		if Input.is_action_just_pressed("attack") and Input.is_action_pressed("charge"):
+			shoot.rpc()
+			animation.play("Throw")
+		elif Input.is_action_just_pressed("attack"):
+			hitbox.set_collision_layer_value(3, true)
+			hitbox.set_collision_mask_value(2, true)
+			animation.play("Attack")
+			
+			hitbox.monitoring = true
+		if Input.is_action_pressed("charge"):
+			animation.play("Throw_charge")
+		if Input.is_action_just_released("charge"):
+			animation.play("Idle")
+
+func _on_animation_player_animation_finished(anim_name):
+	if multiplayer.multiplayer_peer == null:
+		return
+	if owner_id != multiplayer.get_unique_id():
+		return
+	if anim_name == "Attack":
+		animation.play("Idle")
+		hitbox.monitoring = false
+		hitbox.set_collision_layer_value(3, false)
+		hitbox.set_collision_mask_value(2, false)
+	if anim_name == "Throw":
+		mes_mesh.hide()
+		animation.play("Idle")
+		
+		
+		
+
+
+func _on_hitbox_area_entered(area):
+	if area.is_in_group("players"):
+		hitbox.set_deferred("monitoring", false)
+		print("hit")
+		area.hit.rpc()
+		
+@rpc ("any_peer", "call_local", "reliable")
+func shoot():
+	if multiplayer.multiplayer_peer == null:
+			return
+
+	if multiplayer.is_server():
+		var new_knife = spawned_knife.instantiate()
+		new_knife.position = spawn_point.global_position
+		new_knife.transform.basis = spawn_point.global_transform.basis
+		get_parent().add_child(new_knife, true)
+	pickedup = false
+	
+	
+
+
+func picked_up():
+	print("Picked up")
+	pickedup = true
+	mes_mesh.show()

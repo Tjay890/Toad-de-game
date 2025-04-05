@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://di3gc8osttms6" path="res://marterials/grass.tres" id="1_q5oip"]
 [ext_resource type="Script" path="res://script/main-menu.gd" id="1_yvdyv"]
-[ext_resource type="PackedScene" uid="uid://bs5bewrt7rc81" path="res://main_new.tscn" id="2_11sgv"]
+[ext_resource type="PackedScene" uid="uid://bs5bewrt7rc81" path="res://scenes/main_new.tscn" id="2_11sgv"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="3_fawvr"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="4_1pqgq"]
 [ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="5_6n3fc"]
@@ -39,7 +39,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_riw4e"]
+[sub_resource type="Resource" id="Resource_rfrmx"]
 script = ExtResource("5_6n3fc")
 amount = 2000
 enabled = true
@@ -48,7 +48,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_3h1ya"]
+[sub_resource type="Resource" id="Resource_eh560"]
 script = ExtResource("6_s86aq")
 position = Vector3(0, 0, 0)
 rotation = Vector3(0, 0, 0)
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_lt0su"]
+[sub_resource type="Resource" id="Resource_0184u"]
 script = ExtResource("7_w2cab")
 iterations = 3
 offset_step = 0.2
@@ -71,7 +71,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_vny18"]
+[sub_resource type="Resource" id="Resource_4wigu"]
 script = ExtResource("8_yax8a")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -87,7 +87,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_gxg7g"]
+[sub_resource type="Resource" id="Resource_18umf"]
 script = ExtResource("12_krb1n")
 operation = 0
 rotation = Vector3(-90, 0, 0)
@@ -97,9 +97,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_fllda"]
+[sub_resource type="Resource" id="Resource_juv4w"]
 script = ExtResource("4_1pqgq")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_riw4e"), SubResource("Resource_3h1ya"), SubResource("Resource_lt0su"), SubResource("Resource_vny18"), SubResource("Resource_gxg7g")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_rfrmx"), SubResource("Resource_eh560"), SubResource("Resource_0184u"), SubResource("Resource_4wigu"), SubResource("Resource_18umf")])
 
 [sub_resource type="Resource" id="Resource_nvefj"]
 script = ExtResource("11_aua1i")
@@ -123,7 +123,6 @@ toad_label = NodePath("Level_container/world/UI/ToadLabel")
 toad_vbox = NodePath("Level_container/world/UI/Toad")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://main_new.tscn")
 spawn_path = NodePath("../Level_container")
 
 [node name="Level_container" type="Node" parent="."]
@@ -150,7 +149,7 @@ size = Vector3(300, 1, 300)
 
 [node name="ProtonScatter" type="Node3D" parent="Level_container/world"]
 script = ExtResource("3_fawvr")
-modifier_stack = SubResource("Resource_fllda")
+modifier_stack = SubResource("Resource_juv4w")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
