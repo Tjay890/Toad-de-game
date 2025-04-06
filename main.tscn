@@ -39,7 +39,7 @@ volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.4, 0.4, 0.4, 1)
 volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
-[sub_resource type="Resource" id="Resource_n2hlg"]
+[sub_resource type="Resource" id="Resource_b7p0w"]
 script = ExtResource("5_hfcmm")
 amount = 7500
 enabled = true
@@ -48,7 +48,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_dg25n"]
+[sub_resource type="Resource" id="Resource_cyjja"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(5, 360, 10)
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_wmdd5"]
+[sub_resource type="Resource" id="Resource_pa3sg"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -71,7 +71,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_06k7i"]
+[sub_resource type="Resource" id="Resource_ax28n"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -87,9 +87,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_vri7f"]
+[sub_resource type="Resource" id="Resource_a00em"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_n2hlg"), SubResource("Resource_dg25n"), SubResource("Resource_wmdd5"), SubResource("Resource_06k7i")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_b7p0w"), SubResource("Resource_cyjja"), SubResource("Resource_pa3sg"), SubResource("Resource_ax28n")])
 
 [sub_resource type="Resource" id="Resource_311y1"]
 script = ExtResource("11_6urh0")
@@ -143,7 +143,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.033536, 4.76837e-07, 0.026
 
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
-modifier_stack = SubResource("Resource_vri7f")
+modifier_stack = SubResource("Resource_a00em")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -253,6 +253,7 @@ _spawnable_scenes = PackedStringArray("res://knife_throw.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,7 +315,6 @@ grow_vertical = 2
 text = "Quit game"
 
 [node name="Death_screen" type="Control" parent="Control"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -400,4 +400,3 @@ text = "Quit game"
 [connection signal="spawned" from="Players/ToadSpawner" to="." method="_on_toad_spawner_spawned"]
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Control/Death_screen/StartVBox/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Control/Player_lose2/Quitbutton_player" to="." method="_on_quitbutton_player_pressed"]
