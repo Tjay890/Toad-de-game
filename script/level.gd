@@ -151,9 +151,12 @@ func player_is_winner():
 
 #@rpc("authority", "call_local", "reliable")
 func end_game():
-	print("escaped_players", len(escaped_players))
-	print("total_players -1 ", total_players -1)
-	if len(escaped_players) > 0:
+	if total_players - 1 <= 0: 
+		if Lobby.toad_id == 1:
+			toad_is_winner.rpc()
+		else:
+			player_is_winner.rpc()
+	elif len(escaped_players) > 0:
 		if (len(escaped_players) /(total_players - 1) ) >= 0.5:
 			player_is_winner.rpc()
 		else:
