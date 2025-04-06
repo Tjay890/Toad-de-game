@@ -20,7 +20,7 @@ func _process(delta):
 				
 		return
 	position += transform.basis * Vector3(0,0,-SPEED)* delta
-	if ray.is_colliding(): ##and not(ray.get_collider().is_in_group("toad")):
+	if ray.is_colliding() and not(ray.get_collider().is_in_group("toad")):
 		dropped = true
 		print("collission")
 		if ray.get_collider().is_in_group("players"):

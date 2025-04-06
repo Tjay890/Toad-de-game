@@ -12,6 +12,6 @@ func _ready():
 func _on_area_3d_body_entered(body):
 	if body.is_in_group("Player"):
 		if body.Poster >= posterRequired:
-			print("Big Black Monkey")
+			SignalManager.player_escaped.emit(body.name.to_int())
 		else:
 			print("niet genoeg poster man aap")

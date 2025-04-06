@@ -28,6 +28,7 @@ var curanim = IDLE
 @onready var anim_tree = $Playerbody/AnimationTree
 @onready var sprint_slider = $UI/sprint_slider
 @onready var pick_up = $Pick_up
+@export var coins : Control
 @export var hartje1 : TextureRect
 @export var hartje2 : TextureRect
 @export var health_ui : Control
@@ -60,12 +61,13 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	playerbody.hide()
+	coins.show()
 	health_ui.show()
 	
 	#sprint_slider = get_node("/root/" + get_tree().current_scene.name + "/UI/sprint_slider")
-
+	
 	camera.current = true
-
+	SignalManager.coin_collected.connect(AddPoster)
 
 
 func _unhandled_input(event):

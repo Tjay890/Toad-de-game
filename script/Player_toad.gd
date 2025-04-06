@@ -137,9 +137,9 @@ func _on_animation_player_animation_finished(anim_name):
 		return
 	if anim_name == "Attack":
 		animation.play("Idle")
-		hitbox.monitoring = false
 		hitbox.set_collision_layer_value(3, false)
 		hitbox.set_collision_mask_value(2, false)
+		hitbox.monitoring = false
 	if anim_name == "Throw":
 		mes_mesh.hide()
 		animation.play("Idle")
@@ -149,10 +149,12 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_hitbox_area_entered(area):
+	if not multiplayer.is_server():
+		return
 	if area.is_in_group("players"):
 		hitbox.set_deferred("monitoring", false)
 		print("hit")
-		area.hit.rpc()
+		area.hit.rpc_id(area.get_parent().name.to_int())
 		
 @rpc ("any_peer", "call_local", "reliable")
 func shoot():

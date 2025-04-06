@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bs5bewrt7rc81"]
+[gd_scene load_steps=52 format=3 uid="uid://bs5bewrt7rc81"]
 
 [ext_resource type="Script" path="res://script/level.gd" id="1_fau61"]
 [ext_resource type="PackedScene" uid="uid://nssg58x4p3tw" path="res://scenes/player.tscn" id="2_7e2xc"]
@@ -24,6 +24,9 @@
 [ext_resource type="Script" path="res://script/SubViewport_resizer.gd" id="23_2t7am"]
 [ext_resource type="AudioStream" uid="uid://ctjlrssglxwto" path="res://music/Super Mario World Music： Ghost House.wav" id="24_1p3fi"]
 [ext_resource type="Texture2D" uid="uid://d4ywvw1d47vr" path="res://marterials/kuttoad.png" id="24_70klj"]
+[ext_resource type="Texture2D" uid="uid://bu7wj2gddw27m" path="res://custom textures/Ontwerp zonder titel.png" id="25_l6imb"]
+[ext_resource type="Texture2D" uid="uid://c6aryfxowc3dq" path="res://custom textures/Achtergrond toad game.png" id="26_lcsbs"]
+[ext_resource type="Texture2D" uid="uid://cqovlio0s3x46" path="res://custom textures/hqdefault.jpg" id="27_lr1oy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i5sn0"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -50,7 +53,7 @@ volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6lveo"]
 
-[sub_resource type="Resource" id="Resource_1gqyi"]
+[sub_resource type="Resource" id="Resource_ijism"]
 script = ExtResource("5_hfcmm")
 amount = 1000
 enabled = true
@@ -59,7 +62,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_8mhw3"]
+[sub_resource type="Resource" id="Resource_8b048"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(3, 360, 3)
@@ -70,7 +73,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_nkmem"]
+[sub_resource type="Resource" id="Resource_gs1wd"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -82,7 +85,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_lfysl"]
+[sub_resource type="Resource" id="Resource_873vi"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -98,7 +101,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_kcehq"]
+[sub_resource type="Resource" id="Resource_uiq8u"]
 script = ExtResource("12_bp8jk")
 operation = 0
 rotation = Vector3(-90, 0, 0)
@@ -108,9 +111,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_y0bfk"]
+[sub_resource type="Resource" id="Resource_66aca"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_1gqyi"), SubResource("Resource_8mhw3"), SubResource("Resource_nkmem"), SubResource("Resource_lfysl"), SubResource("Resource_kcehq")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_ijism"), SubResource("Resource_8b048"), SubResource("Resource_gs1wd"), SubResource("Resource_873vi"), SubResource("Resource_uiq8u")])
 
 [sub_resource type="Resource" id="Resource_n2ovd"]
 script = ExtResource("11_6urh0")
@@ -145,15 +148,32 @@ albedo_texture = ExtResource("24_70klj")
 
 [sub_resource type="QuadMesh" id="QuadMesh_uk120"]
 
-[node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points")]
+[sub_resource type="LabelSettings" id="LabelSettings_nbdlo"]
+font_size = 100
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uxtde"]
+font_size = 100
+font_color = Color(1, 0, 0, 1)
+
+[node name="world" type="Node3D" node_paths=PackedStringArray("players_container", "spawn_points", "spectator_ui", "toad_winner", "player_lose", "death_screen", "next_button", "quit_toad", "quit_player", "escaped_screen")]
 script = ExtResource("1_fau61")
 player_scene = ExtResource("2_7e2xc")
 players_container = NodePath("Players/PlayersContainer")
 spawn_points = [NodePath("Players/Spawn points/SpawnPoint0"), NodePath("Players/Spawn points/SpawnPoint1"), NodePath("Players/Spawn points/SpawnPoint2"), NodePath("Players/Spawn points/SpawnPoint3"), NodePath("Players/Spawn points/SpawnPoint4"), NodePath("Players/Spawn points/SpawnPoint5")]
 toad_scene = ExtResource("3_bse70")
+spectator_ui = NodePath("Control")
+toad_winner = NodePath("Control/Toad_win")
+player_lose = NodePath("Control/Player_lose")
+death_screen = NodePath("Control/Death_screen")
+next_button = NodePath("Control/Button")
+quit_toad = NodePath("Control/Toad_win/Button")
+quit_player = NodePath("Control/Player_lose/Button")
+escaped_screen = NodePath("Control/Escaped_screen")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -174,7 +194,7 @@ shape = SubResource("ConvexPolygonShape3D_6lveo")
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
 keep_static_colliders = true
-modifier_stack = SubResource("Resource_y0bfk")
+modifier_stack = SubResource("Resource_66aca")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
@@ -358,50 +378,178 @@ stream = ExtResource("24_1p3fi")
 autoplay = true
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Button" type="Button" parent="Control"]
+visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Next player"
 
 [node name="Toad_win" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("25_l6imb")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Control/Toad_win"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -68.5
+offset_right = 191.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You win"
+label_settings = SubResource("LabelSettings_nbdlo")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="Control/Toad_win"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = 84.5
+offset_right = 44.5
+offset_bottom = 115.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit game"
 
 [node name="Death_screen" type="Control" parent="Control"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/Death_screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("26_lcsbs")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="Control/Death_screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -15.5
+offset_right = 37.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "Spectate"
 
 [node name="Player_lose" type="TextureRect" parent="Control"]
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("25_l6imb")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="Control/Player_lose"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.5
+offset_top = -68.5
+offset_right = 202.5
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You lose"
+label_settings = SubResource("LabelSettings_uxtde")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="Control/Player_lose"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = 84.53
+offset_right = 44.5
+offset_bottom = 115.53
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit game"
+
+[node name="Escaped_screen" type="Control" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/Escaped_screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("27_lr1oy")
+expand_mode = 1
+
+[node name="Spectate_escaped" type="Button" parent="Control/Escaped_screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -15.5
+offset_right = 37.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "Spectate"
 
 [connection signal="spawned" from="Players/PlayerSpawner" to="." method="_on_player_spawner_spawned"]
 [connection signal="spawned" from="Players/ToadSpawner" to="." method="_on_toad_spawner_spawned"]
@@ -410,3 +558,6 @@ offset_bottom = 8.0
 [connection signal="body_entered" from="All_Posters_en_Portal/Poster2/Area3D" to="All_Posters_en_Portal/Poster2" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="All_Posters_en_Portal/Poster3/Area3D" to="All_Posters_en_Portal/Poster3" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="All_Posters_en_Portal/Portal/Area3D" to="All_Posters_en_Portal/Portal" method="_on_area_3d_body_entered"]
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Control/Death_screen/Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Control/Escaped_screen/Spectate_escaped" to="." method="_on_spectate_escaped_pressed"]

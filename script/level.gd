@@ -11,8 +11,11 @@ extends Node3D
 @export var next_button: Button
 @export var quit_toad: Button
 @export var quit_player: Button
+@export var escaped_screen: Control
 var player_id = 1
 var players = []
+var escaped_players = []
+var total_players = 0
 var spectator_index = 0
 var next_spawn_point_index = 0
 @onready var camera = $Players/Dood_camera
@@ -21,6 +24,7 @@ var player_count = 0
 func _ready():
 	SignalManager.spectator.connect(_on_spectator)
 	SignalManager.player_dead.connect(toad_win)
+	SignalManager.player_escaped.connect(_player_escaped)
 	quit_toad.pressed.connect(get_tree().quit)
 	quit_player.pressed.connect(get_tree().quit)
 	if not multiplayer.is_server():
@@ -37,7 +41,14 @@ func _ready():
 		add_toad(1)
 	else:
 		add_player(1)
+	player_counter()
+
+#@rpc("authority","call_local","reliable")
+func player_counter():
 	player_count = players_container.get_child_count()
+	total_players = player_count
+	print("Total_players", total_players)
+	print("player_count", player_count)
 
 func _exit_tree():
 	if not multiplayer.is_server():
@@ -60,9 +71,11 @@ func add_toad(id):
 
 
 func delete_player(id):
+	if not multiplayer.is_server():
+		return
 	if not players_container.has_node(str(id)):
 		return
-	
+	SignalManager.player_dead.emit()
 	players_container.get_node(str(id)).queue_free()
 
 func get_spawn_point():
@@ -106,19 +119,48 @@ func toad_win():
 	player_count -= 1
 	print(player_count)
 	if player_count <= 1:
-		end_game.rpc()
+		end_game()
 	
 
-@rpc("authority", "call_local", "reliable")
-func end_game():
-	spectator_ui.show()
+#end game functions
+#als toad gewonnen heeft
+@rpc ("authority", "call_local", "reliable")
+func toad_is_winner():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if Lobby.player_list[0] == Lobby.toad_id:
-		print("toad_win")
+	spectator_ui.show()
+	death_screen.hide()
+	escaped_screen.hide()
+	next_button.hide()
+	if Lobby.peer_id == Lobby.toad_id:
 		toad_winner.show()
 	else:
-		print("Player lost")
 		player_lose.show()
+	
+@rpc ("authority", "call_local", "reliable")
+func player_is_winner():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	spectator_ui.show()
+	death_screen.hide()
+	escaped_screen.hide()
+	next_button.hide()
+	if Lobby.peer_id == Lobby.toad_id:
+		player_lose.show()
+	else:
+		toad_winner.show()
+
+
+#@rpc("authority", "call_local", "reliable")
+func end_game():
+	print("escaped_players", len(escaped_players))
+	print("total_players -1 ", total_players -1)
+	if len(escaped_players) > 0:
+		if (len(escaped_players) /(total_players - 1) ) >= 0.5:
+			player_is_winner.rpc()
+		else:
+			toad_is_winner.rpc()
+	else:
+		toad_is_winner.rpc()
+	
 
 func _on_quit_button_pressed():
 	death_screen.hide()
@@ -128,3 +170,34 @@ func _on_quit_button_pressed():
 @rpc ("call_local","any_peer", "reliable")
 func remove_player(id):
 	players_container.get_node(str(id)).queue_free()
+
+
+func _player_escaped(player_id):
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	spectator_ui.show()
+	escaped_screen.show()
+	remove_player.rpc_id(1, player_id)
+	end_game_check.rpc_id(1,player_id)
+
+	
+@rpc ("any_peer","call_local", "reliable")
+func end_game_check(player_id):
+	print("end_game_check", player_count)
+	player_count -= 1
+	escaped_players.append(player_id)
+	if player_count <= 1:
+		end_game()
+
+
+func _on_spectate_escaped_pressed():
+	next_button.show()
+	escaped_screen.hide()
+	players = players_container.get_children()
+	if spectator_index >= len(players):
+		spectator_index = 0
+		camera = $Players/Dood_camera
+		camera.current = true
+	else:
+		camera = players[spectator_index].get_node("Nek/Camera3D")
+		camera.current = true
+		spectator_index += 1

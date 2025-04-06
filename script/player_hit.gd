@@ -15,6 +15,6 @@ func _process(delta):
 
 @rpc ("call_local","any_peer", "reliable")
 func hit():
-	if multiplayer.get_unique_id() == get_parent().owner_id:
+	if get_parent().name == str(Lobby.peer_id):
 		print("player hit")
 		emit_signal("body_part_hit", damage)

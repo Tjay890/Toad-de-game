@@ -958,7 +958,6 @@ animation = &"Animpack1/Run"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0dld1"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_37cs5"]
-graph_offset = Vector2(-294.301, -50.0976)
 "nodes/anim idle/node" = SubResource("AnimationNodeAnimation_8go0s")
 "nodes/anim idle/position" = Vector2(-9.79768, 173.042)
 "nodes/anim run/node" = SubResource("AnimationNodeAnimation_nx174")
@@ -975,6 +974,15 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("Playerbody/AnimationPlayer:current_animation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Nek:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kl54q"]
 radius = 0.332911
@@ -982,11 +990,12 @@ height = 1.88937
 
 [sub_resource type="ImageTexture" id="ImageTexture_oomh0"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hartje1", "hartje2", "health_ui", "player") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("coins", "hartje1", "hartje2", "health_ui", "player") groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-collision_layer = 9
-collision_mask = 9
+collision_layer = 11
+collision_mask = 11
 script = ExtResource("1_qxcmj")
+coins = NodePath("UI")
 hartje1 = NodePath("Health/Hartje1")
 hartje2 = NodePath("Health/Hartje2")
 health_ui = NodePath("Health")
@@ -1032,6 +1041,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0586549, 0)
 shape = SubResource("CapsuleShape3D_kl54q")
 
 [node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_brgk4")]
+visible = false
 script = ExtResource("5_4hgbb")
 player = NodePath("..")
 
@@ -1050,8 +1060,8 @@ value = 1.0
 stream = ExtResource("6_vafo0")
 
 [node name="Area3D" type="Area3D" parent="." groups=["players"]]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 6
+collision_mask = 6
 script = ExtResource("7_of7hk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
@@ -1059,12 +1069,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0586549, 0)
 shape = SubResource("CapsuleShape3D_kl54q")
 
 [node name="Health" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Hartje1" type="TextureRect" parent="Health"]
+layout_mode = 0
 offset_right = 112.0
 offset_bottom = 112.0
 texture = ExtResource("8_mlate")
