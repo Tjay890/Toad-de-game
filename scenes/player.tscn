@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://nssg58x4p3tw"]
+[gd_scene load_steps=19 format=3 uid="uid://nssg58x4p3tw"]
 
 [ext_resource type="Script" path="res://script/Player.gd" id="1_qxcmj"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://scenes/pause_menu.tscn" id="2_blwle"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dbbsvjqps3p6h" path="res://scenes/ui.tscn" id="4_brgk4"]
 [ext_resource type="Script" path="res://scenes/UI_Manager.gd" id="5_4hgbb"]
 [ext_resource type="AudioStream" uid="uid://mfm8im8xxmou" path="res://music/sm64_coin.wav" id="6_vafo0"]
+[ext_resource type="Script" path="res://script/player_hit.gd" id="7_of7hk"]
+[ext_resource type="Texture2D" uid="uid://2i06fhm800wk" path="res://custom textures/hardcore-heart.png" id="8_mlate"]
 
 [sub_resource type="Animation" id="Animation_cyj8r"]
 resource_name = "Idle"
@@ -980,9 +982,15 @@ height = 1.88937
 
 [sub_resource type="ImageTexture" id="ImageTexture_oomh0"]
 
-[node name="Player" type="CharacterBody3D" groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("hartje1", "hartje2", "health_ui", "player") groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_qxcmj")
+hartje1 = NodePath("Health/Hartje1")
+hartje2 = NodePath("Health/Hartje2")
+health_ui = NodePath("Health")
+player = NodePath(".")
 
 [node name="Playerbody" parent="." instance=ExtResource("2_v7gn6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.921296, 0)
@@ -1000,14 +1008,14 @@ tree_root = SubResource("AnimationNodeBlendTree_37cs5")
 anim_player = NodePath("../AnimationPlayer")
 parameters/run/blend_amount = 0.0
 
-[node name="nek2" type="Node3D" parent="."]
+[node name="Nek" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.736964, 0.153096)
 
-[node name="Camera3D" type="Camera3D" parent="nek2"]
+[node name="Camera3D" type="Camera3D" parent="Nek"]
 
-[node name="Spotlight" type="Node3D" parent="nek2/Camera3D"]
+[node name="Spotlight" type="Node3D" parent="Nek/Camera3D"]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="nek2/Camera3D/Spotlight"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Nek/Camera3D/Spotlight"]
 light_color = Color(1, 0.94902, 0.886275, 1)
 light_energy = 4.0
 light_volumetric_fog_energy = 0.1
@@ -1040,3 +1048,34 @@ value = 1.0
 
 [node name="Pick_up" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_vafo0")
+
+[node name="Area3D" type="Area3D" parent="." groups=["players"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("7_of7hk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0586549, 0)
+shape = SubResource("CapsuleShape3D_kl54q")
+
+[node name="Health" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Hartje1" type="TextureRect" parent="Health"]
+offset_right = 112.0
+offset_bottom = 112.0
+texture = ExtResource("8_mlate")
+expand_mode = 1
+
+[node name="Hartje2" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_left = 74.0
+offset_right = 186.0
+offset_bottom = 112.0
+texture = ExtResource("8_mlate")
+expand_mode = 1
+
+[connection signal="body_part_hit" from="Area3D" to="." method="_on_area_3d_body_part_hit"]

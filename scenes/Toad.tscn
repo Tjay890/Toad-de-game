@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://ddkapc5aro1m3"]
 
 [ext_resource type="Script" path="res://script/Player_toad.gd" id="1_eplmw"]
-[ext_resource type="PackedScene" uid="uid://bdw4xfcue8ytt" path="res://scenes/knife_throw.tscn" id="2_1f0my"]
+[ext_resource type="PackedScene" uid="uid://c5gs7eoxpdjyb" path="res://scenes/knife_throw.tscn" id="2_1f0my"]
 [ext_resource type="PackedScene" uid="uid://bwxpbronuddrn" path="res://import/models/toad.glb" id="2_g2dj1"]
 [ext_resource type="PackedScene" uid="uid://bq433csy5cv10" path="res://scenes/pause_menu.tscn" id="2_vlky7"]
 
@@ -20,6 +20,12 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimationPlayer:current_animation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Nek:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="Animation" id="Animation_3yb8k"]
 resource_name = "Attack"
@@ -59,45 +65,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(-2, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 2.00189, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_e5nxt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Nek/Camera3D/WeaponPivot:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.354, 0.122, -0.368)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1.56032, -0.553269, 0.617847)]
 }
 
 [sub_resource type="Animation" id="Animation_451ji"]
@@ -141,8 +108,48 @@ tracks/2/keys = {
 "values": [Vector3(-0.0872665, -0.00523599, 0.0663225), Vector3(-0.0872665, -0.00174533, 0.0226893)]
 }
 
+[sub_resource type="Animation" id="Animation_e5nxt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Nek/Camera3D/WeaponPivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.354, 0.122, -0.368)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Nek/Camera3D/WeaponPivot/WeaponMesh:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.56032, -0.553269, 0.617847)]
+}
+
 [sub_resource type="Animation" id="Animation_po2v1"]
 resource_name = "Throw"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -207,6 +214,8 @@ _data = {
 }
 
 [node name="Toad" type="CharacterBody3D" node_paths=PackedStringArray("pause_menu", "animation", "hitbox", "collisionshape", "spawn_point", "mes_mesh") groups=["toad"]]
+collision_layer = 9
+collision_mask = 9
 script = ExtResource("1_eplmw")
 pause_menu = NodePath("PauseMenu")
 animation = NodePath("AnimationPlayer")
@@ -240,13 +249,12 @@ spot_angle_attenuation = 3.0
 [node name="WeaponPivot" type="Node3D" parent="Nek/Camera3D"]
 
 [node name="WeaponMesh" type="MeshInstance3D" parent="Nek/Camera3D/WeaponPivot"]
-transform = Transform3D(0.0997899, -0.0645557, -0.000550265, 0.000606613, 0.00853588, 0.0999945, -0.00645053, -0.997878, 0.000890955, 0.354, 0.122, -0.368)
+transform = Transform3D(0.0997899, -0.0645567, -0.00055049, 0.000606862, 0.00853937, 0.0999945, -0.00645061, -0.997878, 0.00089132, 0.354, 0.122, -0.368)
 mesh = SubResource("BoxMesh_blxdi")
 
 [node name="Mes" type="Area3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Nek/Camera3D/WeaponPivot/WeaponMesh/Mes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_wimn7")
 
 [node name="RayCast3D" type="RayCast3D" parent="Nek/Camera3D"]

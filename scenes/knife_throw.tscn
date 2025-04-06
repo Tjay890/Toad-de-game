@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdw4xfcue8ytt"]
+[gd_scene load_steps=4 format=3 uid="uid://c5gs7eoxpdjyb"]
 
 [ext_resource type="Script" path="res://script/knife_throw.gd" id="1_dwqem"]
 
@@ -22,7 +22,7 @@ mesh = SubResource("BoxMesh_n6frh")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 target_position = Vector3(0, 0, -1.1)
-collision_mask = 7
+collision_mask = 14
 collide_with_areas = true
 
 [node name="Timer" type="Timer" parent="."]

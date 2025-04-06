@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddqg3iymqbvdo"]
+
+[ext_resource type="PackedScene" uid="uid://bwxpbronuddrn" path="res://import/models/toad.glb" id="1_wrkim"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_wrkim")]

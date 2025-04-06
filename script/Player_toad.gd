@@ -13,6 +13,7 @@ const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
 var t_bob = 0.0
 
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.81
 @export var pause_menu : ColorRect
@@ -25,7 +26,7 @@ var gravity = 9.81
 @export var spawn_point: RayCast3D
 @export var mes_mesh: MeshInstance3D
 @onready var toad_body = $Toad_body
-
+@onready var toad = $"."
 var owner_id = 1
 
 func _enter_tree():
@@ -124,7 +125,7 @@ func _process(delta):
 			animation.play("Attack")
 			
 			hitbox.monitoring = true
-		if Input.is_action_pressed("charge"):
+		if Input.is_action_just_pressed("charge"):
 			animation.play("Throw_charge")
 		if Input.is_action_just_released("charge"):
 			animation.play("Idle")
@@ -163,9 +164,8 @@ func shoot():
 		new_knife.position = spawn_point.global_position
 		new_knife.transform.basis = spawn_point.global_transform.basis
 		get_parent().add_child(new_knife, true)
+	
 	pickedup = false
-	
-	
 
 
 func picked_up():

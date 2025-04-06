@@ -50,7 +50,7 @@ volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6lveo"]
 
-[sub_resource type="Resource" id="Resource_pfevq"]
+[sub_resource type="Resource" id="Resource_1gqyi"]
 script = ExtResource("5_hfcmm")
 amount = 1000
 enabled = true
@@ -59,7 +59,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_e3mde"]
+[sub_resource type="Resource" id="Resource_8mhw3"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(3, 360, 3)
@@ -70,7 +70,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_ijhsl"]
+[sub_resource type="Resource" id="Resource_nkmem"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -82,7 +82,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_x6wn4"]
+[sub_resource type="Resource" id="Resource_lfysl"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -98,7 +98,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_mncm2"]
+[sub_resource type="Resource" id="Resource_kcehq"]
 script = ExtResource("12_bp8jk")
 operation = 0
 rotation = Vector3(-90, 0, 0)
@@ -108,9 +108,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_7vl87"]
+[sub_resource type="Resource" id="Resource_y0bfk"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_pfevq"), SubResource("Resource_e3mde"), SubResource("Resource_ijhsl"), SubResource("Resource_x6wn4"), SubResource("Resource_mncm2")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_1gqyi"), SubResource("Resource_8mhw3"), SubResource("Resource_nkmem"), SubResource("Resource_lfysl"), SubResource("Resource_kcehq")])
 
 [sub_resource type="Resource" id="Resource_n2ovd"]
 script = ExtResource("11_6urh0")
@@ -174,12 +174,13 @@ shape = SubResource("ConvexPolygonShape3D_6lveo")
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
 keep_static_colliders = true
-modifier_stack = SubResource("Resource_7vl87")
+modifier_stack = SubResource("Resource_y0bfk")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
 [node name="ScatterItem" type="Node3D" parent="ProtonScatter"]
 script = ExtResource("9_5as5t")
+source_ignore_rotation = false
 path = "res://scenes/bomen.tscn"
 
 [node name="ScatterShape" type="Node3D" parent="ProtonScatter"]
@@ -201,6 +202,8 @@ transform = Transform3D(-6.55671e-09, 0.205, -8.52372e-09, 0, -8.96083e-09, -0.1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 material_override = SubResource("StandardMaterial3D_4nhr6")
 use_collision = true
+collision_layer = 8
+collision_mask = 8
 size = Vector3(300, 1, 300)
 
 [node name="walls" type="Node3D" parent="map"]
@@ -209,24 +212,32 @@ size = Vector3(300, 1, 300)
 transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 150, 0, 0)
 material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
+collision_layer = 8
+collision_mask = 8
 size = Vector3(20, 1, 320)
 
 [node name="wall2" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -150, 0, 0)
 material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
+collision_layer = 8
+collision_mask = 8
 size = Vector3(20, 1, 320)
 
 [node name="wall3" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(-2.18557e-08, -3.78552e-08, 1, -0.866025, 0.5, 0, -0.5, -0.866025, -4.37114e-08, 0, 0, 150)
 material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
+collision_layer = 8
+collision_mask = 8
 size = Vector3(20, 1, 320)
 
 [node name="wall4" type="CSGBox3D" parent="map/walls"]
 transform = Transform3D(-2.18557e-08, -3.78552e-08, -1, -0.866025, 0.5, 0, 0.5, 0.866025, -4.37114e-08, 0, 0, -150)
 material_override = SubResource("StandardMaterial3D_t7si5")
 use_collision = true
+collision_layer = 8
+collision_mask = 8
 size = Vector3(20, 1, 320)
 
 [node name="Players" type="Node" parent="."]
@@ -254,11 +265,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.621971, -1.19209e-07, 2.93
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36073, 1.19209e-07, 1.95794)
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="Players"]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
 spawn_path = NodePath("../PlayersContainer")
 
 [node name="ToadSpawner" type="MultiplayerSpawner" parent="Players"]
 _spawnable_scenes = PackedStringArray("res://scenes/Toad.tscn")
 spawn_path = NodePath("../PlayersContainer")
+
+[node name="KnifeSpawner" type="MultiplayerSpawner" parent="Players"]
+_spawnable_scenes = PackedStringArray("res://scenes/knife_throw.tscn")
+spawn_path = NodePath("../PlayersContainer")
+
+[node name="Dood_camera" type="Camera3D" parent="Players"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 29.6474, 0)
 
 [node name="All_Posters_en_Portal" type="Node" parent="."]
 
@@ -269,6 +288,8 @@ script = ExtResource("19_f17wc")
 [node name="VisualNode" parent="All_Posters_en_Portal/Poster" instance=ExtResource("20_primm")]
 
 [node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Poster"]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Poster/Area3D"]
 shape = SubResource("SphereShape3D_n8yxc")
@@ -280,6 +301,8 @@ script = ExtResource("19_f17wc")
 [node name="VisualNode" parent="All_Posters_en_Portal/Poster2" instance=ExtResource("20_primm")]
 
 [node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Poster2"]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Poster2/Area3D"]
 shape = SubResource("SphereShape3D_n8yxc")
@@ -291,6 +314,8 @@ script = ExtResource("19_f17wc")
 [node name="VisualNode" parent="All_Posters_en_Portal/Poster3" instance=ExtResource("20_primm")]
 
 [node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Poster3"]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Poster3/Area3D"]
 shape = SubResource("SphereShape3D_n8yxc")
@@ -300,6 +325,8 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.196569, 0.56129, -0.1
 script = ExtResource("22_jlgyb")
 
 [node name="Area3D" type="Area3D" parent="All_Posters_en_Portal/Portal"]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="All_Posters_en_Portal/Portal/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133344, -0.3387, -0.106606)
@@ -330,8 +357,55 @@ mesh = SubResource("QuadMesh_uk120")
 stream = ExtResource("24_1p3fi")
 autoplay = true
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Next player"
+
+[node name="Toad_win" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/Toad_win"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Button" type="Button" parent="Control/Toad_win"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Death_screen" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player_lose" type="TextureRect" parent="Control"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/Player_lose"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Button" type="Button" parent="Control/Player_lose"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
 [connection signal="spawned" from="Players/PlayerSpawner" to="." method="_on_player_spawner_spawned"]
 [connection signal="spawned" from="Players/ToadSpawner" to="." method="_on_toad_spawner_spawned"]
+[connection signal="spawned" from="Players/KnifeSpawner" to="." method="_on_toad_spawner_spawned"]
 [connection signal="body_entered" from="All_Posters_en_Portal/Poster/Area3D" to="All_Posters_en_Portal/Poster" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="All_Posters_en_Portal/Poster2/Area3D" to="All_Posters_en_Portal/Poster2" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="All_Posters_en_Portal/Poster3/Area3D" to="All_Posters_en_Portal/Poster3" method="_on_area_3d_body_entered"]
