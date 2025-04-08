@@ -1041,7 +1041,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0586549, 0)
 shape = SubResource("CapsuleShape3D_kl54q")
 
 [node name="UI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_brgk4")]
-visible = false
 script = ExtResource("5_4hgbb")
 player = NodePath("..")
 

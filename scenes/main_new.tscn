@@ -53,7 +53,7 @@ volumetric_fog_emission = Color(0.235294, 0, 0.00784314, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6lveo"]
 
-[sub_resource type="Resource" id="Resource_ijism"]
+[sub_resource type="Resource" id="Resource_i1tsc"]
 script = ExtResource("5_hfcmm")
 amount = 1000
 enabled = true
@@ -62,7 +62,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 1
 
-[sub_resource type="Resource" id="Resource_8b048"]
+[sub_resource type="Resource" id="Resource_q71e0"]
 script = ExtResource("6_8xobo")
 position = Vector3(0.15, 0.15, 0.15)
 rotation = Vector3(3, 360, 3)
@@ -73,7 +73,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_gs1wd"]
+[sub_resource type="Resource" id="Resource_ny4l4"]
 script = ExtResource("7_cjyeg")
 iterations = 3
 offset_step = 0.2
@@ -85,7 +85,7 @@ custom_seed = 0
 restrict_height = true
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_873vi"]
+[sub_resource type="Resource" id="Resource_hnh4u"]
 script = ExtResource("8_y8xd7")
 ray_direction = Vector3(0, -1, 0)
 ray_length = 5.0
@@ -101,7 +101,7 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 0
 
-[sub_resource type="Resource" id="Resource_uiq8u"]
+[sub_resource type="Resource" id="Resource_ms8is"]
 script = ExtResource("12_bp8jk")
 operation = 0
 rotation = Vector3(-90, 0, 0)
@@ -111,9 +111,9 @@ custom_seed = 0
 restrict_height = false
 reference_frame = 2
 
-[sub_resource type="Resource" id="Resource_66aca"]
+[sub_resource type="Resource" id="Resource_vlj0b"]
 script = ExtResource("4_yecyg")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_ijism"), SubResource("Resource_8b048"), SubResource("Resource_gs1wd"), SubResource("Resource_873vi"), SubResource("Resource_uiq8u")])
+stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_i1tsc"), SubResource("Resource_q71e0"), SubResource("Resource_ny4l4"), SubResource("Resource_hnh4u"), SubResource("Resource_ms8is")])
 
 [sub_resource type="Resource" id="Resource_n2ovd"]
 script = ExtResource("11_6urh0")
@@ -173,7 +173,6 @@ escaped_screen = NodePath("Control/Escaped_screen")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -194,7 +193,7 @@ shape = SubResource("ConvexPolygonShape3D_6lveo")
 [node name="ProtonScatter" type="Node3D" parent="."]
 script = ExtResource("3_idv4u")
 keep_static_colliders = true
-modifier_stack = SubResource("Resource_66aca")
+modifier_stack = SubResource("Resource_vlj0b")
 Performance/use_chunks = true
 Performance/chunk_dimensions = Vector3(15, 15, 15)
 
